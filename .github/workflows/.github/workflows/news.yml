@@ -1,0 +1,19 @@
+name: India News Agent v4
+on:
+  schedule:
+    - cron: '0 1,5,9,13 * * *'
+  workflow_dispatch:
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with: {python-version: '3.11'}
+      - run: pip install requests pillow google-generativeai tone
+      - run: python agent.py
+        env:
+          GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
+          GNEWS_KEY:  ${{ secrets.GNEWS_KEY }}
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
+          YT_CHANNEL: ${{ secrets.YT_CHANNEL }}
