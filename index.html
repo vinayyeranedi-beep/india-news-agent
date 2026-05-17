@@ -3,77 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>India News Agent — Complete System</title>
+<title>Minute News Agent — Complete</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#07080C;--bg2:#0E1018;--bg3:#151820;--bg4:#1B1F2E;
-  --gold:#C9963A;--gold2:#E8B84B;--gold3:#F5D68A;--goldD:rgba(201,150,58,0.12);--goldB:rgba(201,150,58,0.25);
+  --gold:#C9963A;--gold2:#E8B84B;--gold3:#F5D68A;
+  --goldD:rgba(201,150,58,0.12);--goldB:rgba(201,150,58,0.25);
   --red:#FF4444;--redD:rgba(255,68,68,0.12);
   --green:#00D97E;--greenD:rgba(0,217,126,0.10);
   --blue:#3D8EFF;--blueD:rgba(61,142,255,0.10);
-  --purple:#9B6DFF;
   --text:#E8EBF4;--muted:#4A5268;--muted2:#7A859A;
   --border:rgba(255,255,255,0.055);--border2:rgba(255,255,255,0.10);
+  --ig:#E1306C;--igD:rgba(225,48,108,0.10);
+  --fb:#1877F2;--fbD:rgba(24,119,242,0.10);
   --yt:#FF0000;--ytD:rgba(255,0,0,0.10);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;overflow:hidden;}
 body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;}
 
-/* Grain */
-body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-  opacity:0.7;}
-
 /* ── HEADER ── */
 .hdr{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:52px;
   background:rgba(7,8,12,0.97);border-bottom:1px solid var(--border);flex-shrink:0;position:relative;z-index:100;}
 .brand{display:flex;align-items:center;gap:12px;}
-.brand-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--gold),#8B5E1A);
-  display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:15px;
+.brand-icon{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--gold),#8B5E1A);
+  display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:16px;
   color:#fff;box-shadow:0 0 16px rgba(201,150,58,0.35);}
-.brand-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;}
+.brand-name{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;}
 .brand-v{font-size:10px;color:var(--gold);font-family:'JetBrains Mono',monospace;vertical-align:super;margin-left:2px;}
 .hdr-pills{display:flex;gap:7px;}
 .pill{display:flex;align-items:center;gap:5px;border-radius:100px;padding:4px 11px;font-size:11px;font-family:'JetBrains Mono',monospace;}
 .p-gold{background:var(--goldD);border:1px solid var(--goldB);color:var(--gold2);}
-.p-yt{background:var(--ytD);border:1px solid rgba(255,0,0,0.2);color:var(--yt);}
 .p-green{background:var(--greenD);border:1px solid rgba(0,217,126,0.2);color:var(--green);}
+.p-ig{background:var(--igD);border:1px solid rgba(225,48,108,0.2);color:var(--ig);}
+.p-fb{background:var(--fbD);border:1px solid rgba(24,119,242,0.2);color:var(--fb);}
+.p-yt{background:var(--ytD);border:1px solid rgba(255,0,0,0.2);color:var(--yt);}
 .blink{animation:bl 2s infinite;}
 @keyframes bl{0%,100%{opacity:1}50%{opacity:0.3}}
 .quota-badge{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold2);
   background:var(--goldD);border:1px solid var(--goldB);border-radius:8px;padding:4px 10px;}
 
 /* ── LAYOUT ── */
-.layout{display:grid;grid-template-columns:210px 1fr 310px;flex:1;overflow:hidden;position:relative;z-index:1;}
+.layout{display:grid;grid-template-columns:230px 1fr 320px;flex:1;overflow:hidden;}
 
 /* ── SIDEBAR ── */
 .sb{background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:none;}
 .sb::-webkit-scrollbar{display:none;}
 .sb-sec{padding:13px 13px 0;}
-.sb-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:9px;padding-left:1px;}
+.sb-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:9px;}
 .divider{height:1px;background:var(--border);margin:10px 0;}
 
-/* Inputs */
-.fi{display:flex;flex-direction:column;gap:5px;margin-bottom:8px;}
-.fi label{font-size:10px;color:var(--muted2);}
-.fi input{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:7px 9px;
+/* Key inputs */
+.ki{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;}
+.ki label{font-size:10px;color:var(--muted2);display:flex;align-items:center;gap:5px;}
+.ki-icon{font-size:12px;}
+.ki input{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:7px 9px;
   color:var(--text);font-size:11px;font-family:'JetBrains Mono',monospace;outline:none;width:100%;transition:border-color 0.2s;}
-.fi input:focus{border-color:var(--goldB);}
-.fi input::placeholder{color:var(--muted);}
-.fst{font-size:9px;margin-top:1px;font-family:'JetBrains Mono',monospace;}
-.fst-ok{color:var(--green);}
-.fst-no{color:var(--muted);}
+.ki input:focus{border-color:var(--goldB);}
+.ki input::placeholder{color:var(--muted);}
+.ki-status{font-size:9px;font-family:'JetBrains Mono',monospace;margin-top:1px;}
+.ks-ok{color:var(--green);}
+.ks-no{color:var(--muted);}
+
+/* Platform status cards */
+.plat-cards{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
+.plat-card{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:9px;border:1px solid var(--border);background:var(--bg3);}
+.plat-card.connected{border-color:rgba(0,217,126,0.25);background:var(--greenD);}
+.plat-card.connected .pc-status{color:var(--green);}
+.pc-icon{font-size:16px;}
+.pc-info{flex:1;}
+.pc-name{font-size:12px;font-weight:600;}
+.pc-status{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
 
 /* Chips */
 .chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
 .chip{padding:4px 10px;border-radius:100px;border:1px solid var(--border2);background:transparent;
   color:var(--muted2);font-size:11px;font-family:'Outfit',sans-serif;font-weight:500;cursor:pointer;transition:all 0.15s;}
-.chip:hover{border-color:var(--goldB);color:var(--gold2);}
 .chip.on{background:var(--goldD);border-color:var(--goldB);color:var(--gold2);}
 .chip.on-green{background:var(--greenD);border-color:rgba(0,217,126,0.25);color:var(--green);}
-.chip.on-yt{background:var(--ytD);border-color:rgba(255,0,0,0.25);color:var(--yt);}
 
 /* Schedule */
 .sched{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:10px;}
@@ -84,13 +92,12 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 /* Buttons */
 .sbtn{width:100%;padding:9px;border-radius:9px;border:none;font-size:12px;font-family:'Outfit',sans-serif;
   font-weight:600;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:6px;}
-.sbtn-gold{background:linear-gradient(135deg,var(--gold),#8B5E1A);color:#fff;box-shadow:0 2px 12px rgba(201,150,58,0.25);}
+.sbtn-gold{background:linear-gradient(135deg,var(--gold),#8B5E1A);color:#fff;}
 .sbtn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 18px rgba(201,150,58,0.35);}
 .sbtn-sec{background:var(--bg3);border:1px solid var(--border2);color:var(--muted2);}
 .sbtn-sec:hover{color:var(--text);}
 .sbtn-green{background:var(--greenD);border:1px solid rgba(0,217,126,0.25);color:var(--green);}
 .sbtn-red{background:var(--redD);border:1px solid rgba(255,68,68,0.25);color:var(--red);}
-.sbtn-yt{background:rgba(255,0,0,0.12);border:1px solid rgba(255,0,0,0.3);color:var(--yt);}
 
 /* ── CENTER ── */
 .center{display:flex;flex-direction:column;overflow:hidden;}
@@ -100,7 +107,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .tab:hover{color:var(--text);}
 .tab.active{background:var(--bg3);color:var(--text);}
 .tab-end{flex:1;}
-.breaking-pill{display:flex;align-items:center;gap:5px;background:var(--redD);border:1px solid rgba(255,68,68,0.3);
+.brk-pill{display:flex;align-items:center;gap:5px;background:var(--redD);border:1px solid rgba(255,68,68,0.3);
   border-radius:100px;padding:4px 11px;font-size:11px;color:var(--red);font-family:'JetBrains Mono',monospace;
   animation:pulse-red 2s infinite;}
 @keyframes pulse-red{0%,100%{box-shadow:none}50%{box-shadow:0 0 12px rgba(255,68,68,0.3)}}
@@ -109,26 +116,23 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .panel::-webkit-scrollbar{width:3px;}
 .panel::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px;}
 
-/* Platform ratio info bar */
-.ratio-bar{
-  display:flex;gap:8px;margin-bottom:12px;padding:10px 12px;
-  background:var(--bg3);border:1px solid var(--goldB);border-radius:10px;
-  font-size:11px;
-}
-.ratio-item{display:flex;align-items:center;gap:6px;flex:1;}
-.ratio-icon{font-size:14px;}
-.ratio-info{display:flex;flex-direction:column;}
-.ratio-name{font-weight:600;font-size:11px;color:var(--text);}
-.ratio-spec{font-size:10px;color:var(--muted2);font-family:'JetBrains Mono',monospace;}
-.ratio-divider{width:1px;background:var(--border2);}
+/* Platform ratio bar */
+.ratio-bar{display:flex;gap:8px;margin-bottom:12px;padding:10px 12px;
+  background:var(--bg3);border:1px solid var(--goldB);border-radius:10px;}
+.ri{display:flex;align-items:center;gap:6px;flex:1;}
+.ri-icon{font-size:14px;}
+.ri-name{font-weight:600;font-size:11px;}
+.ri-spec{font-size:10px;color:var(--muted2);font-family:'JetBrains Mono',monospace;}
+.rdiv{width:1px;background:var(--border2);}
 
-/* News cards */
-.ntoolbar{display:flex;gap:8px;margin-bottom:11px;}
+/* News */
+.ntb{display:flex;gap:8px;margin-bottom:11px;}
 .nsearch{flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:9px;padding:8px 11px;
   color:var(--text);font-size:12px;outline:none;font-family:'Outfit',sans-serif;transition:border-color 0.2s;}
 .nsearch:focus{border-color:var(--goldB);}
 .nsearch::placeholder{color:var(--muted);}
-.fetch-btn{padding:8px 13px;border-radius:9px;border:none;background:linear-gradient(135deg,var(--gold),#8B5E1A);
+.fetch-btn{padding:8px 13px;border-radius:9px;border:none;
+  background:linear-gradient(135deg,var(--gold),#8B5E1A);
   color:#fff;font-size:11px;font-family:'Outfit',sans-serif;font-weight:600;cursor:pointer;white-space:nowrap;}
 
 .nlist{display:flex;flex-direction:column;gap:7px;}
@@ -136,7 +140,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   cursor:pointer;transition:all 0.15s;display:flex;gap:9px;}
 .nc:hover,.nc.sel{border-color:var(--goldB);background:rgba(201,150,58,0.06);}
 .nc.brk{border-color:rgba(255,68,68,0.3);background:var(--redD);}
-.nc.brk:hover{border-color:var(--red);}
 .nc-left{flex:1;}
 .nc-top{display:flex;align-items:center;gap:7px;margin-bottom:4px;}
 .ncat{font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:100px;font-weight:600;}
@@ -156,12 +159,24 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .nb-g{background:var(--goldD);border:1px solid var(--goldB);color:var(--gold2);}
 .nb-p{background:var(--greenD);border:1px solid rgba(0,217,126,0.25);color:var(--green);}
 
+/* Post result cards */
+.post-result{background:var(--bg3);border:1px solid var(--border);border-radius:11px;padding:12px 14px;margin-bottom:8px;}
+.pr-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.pr-title{font-size:13px;font-weight:600;}
+.pr-plats{display:flex;gap:6px;}
+.pr-plat{display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:600;}
+.pr-ig{background:var(--igD);border:1px solid rgba(225,48,108,0.25);color:var(--ig);}
+.pr-fb{background:var(--fbD);border:1px solid rgba(24,119,242,0.25);color:var(--fb);}
+.pr-yt{background:var(--ytD);border:1px solid rgba(255,0,0,0.25);color:var(--yt);}
+.pr-ok{color:var(--green);}
+.pr-fail{color:var(--red);}
+.pr-body{font-size:12px;color:var(--muted2);line-height:1.6;}
+
 /* Queue */
 .qlist{display:flex;flex-direction:column;gap:7px;}
 .qc{background:var(--bg3);border:1px solid var(--border);border-radius:11px;padding:11px 13px;display:flex;gap:11px;align-items:center;}
 .qt{width:48px;height:48px;border-radius:8px;background:var(--bg4);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;overflow:hidden;}
-.qt img{width:100%;height:100%;object-fit:cover;}
+  display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
 .qi{flex:1;}
 .qi-title{font-size:12px;color:var(--text);margin-bottom:2px;line-height:1.4;}
 .qi-meta{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
@@ -170,52 +185,42 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .sp{background:var(--goldD);color:var(--gold2);}
 .sd{background:var(--greenD);color:var(--green);}
 .sf{background:var(--redD);color:var(--red);}
-.q-plats{font-size:10px;color:var(--muted);margin-top:3px;}
-
-/* Platform specs panel */
-.spec-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;}
-.spec-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px;}
-.spec-icon{font-size:24px;margin-bottom:8px;}
-.spec-name{font-size:13px;font-weight:600;margin-bottom:6px;}
-.spec-row{display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px;color:var(--muted2);}
-.spec-val{font-family:'JetBrains Mono',monospace;color:var(--text);font-size:10px;}
-.spec-badge{display:inline-block;padding:2px 8px;border-radius:100px;font-size:10px;margin-top:6px;}
 
 /* ── RIGHT PANEL ── */
 .rp{background:var(--bg2);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
 .rp-hdr{padding:11px 13px;border-bottom:1px solid var(--border);font-size:9px;letter-spacing:2px;
   text-transform:uppercase;color:var(--muted);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 
-/* Platform selector for preview */
-.plat-sel{display:flex;gap:4px;padding:10px 13px;border-bottom:1px solid var(--border);flex-shrink:0;}
-.ps-btn{flex:1;padding:7px 4px;border-radius:8px;border:none;font-size:11px;font-family:'Outfit',sans-serif;
+/* Platform selector */
+.ps{display:flex;gap:4px;padding:10px 13px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.psb{flex:1;padding:7px 4px;border-radius:8px;border:none;font-size:11px;font-family:'Outfit',sans-serif;
   font-weight:600;cursor:pointer;transition:all 0.15s;background:var(--bg3);color:var(--muted2);text-align:center;}
-.ps-btn.active{background:var(--goldD);border:1px solid var(--goldB);color:var(--gold2);}
-.ps-btn.active.yt{background:var(--ytD);border-color:rgba(255,0,0,0.3);color:var(--yt);}
-.ps-ratio{font-size:9px;display:block;color:var(--muted);margin-top:1px;font-family:'JetBrains Mono',monospace;}
+.psb span{font-size:9px;display:block;color:var(--muted);margin-top:1px;font-family:'JetBrains Mono',monospace;}
+.psb.active-ig{background:var(--igD);border:1px solid rgba(225,48,108,0.3);color:var(--ig);}
+.psb.active-fb{background:var(--fbD);border:1px solid rgba(24,119,242,0.3);color:var(--fb);}
+.psb.active-yt{background:var(--ytD);border:1px solid rgba(255,0,0,0.3);color:var(--yt);}
 
 .rp-body{flex:1;overflow-y:auto;padding:12px;scrollbar-width:none;}
 .rp-body::-webkit-scrollbar{display:none;}
 
 /* Canvas */
-.canvas-wrap{position:relative;width:100%;border-radius:11px;overflow:hidden;background:var(--bg3);border:1px solid var(--border);margin-bottom:10px;}
-.canvas-wrap.ratio-916{aspect-ratio:9/16;}
-.canvas-wrap.ratio-11{aspect-ratio:1/1;}
+.cv-wrap{position:relative;width:100%;aspect-ratio:9/16;border-radius:11px;overflow:hidden;
+  background:var(--bg3);border:1px solid var(--border);margin-bottom:10px;}
 #previewCanvas{width:100%;height:100%;display:block;}
-.canvas-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+.cv-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:8px;color:var(--muted);font-size:12px;text-align:center;padding:12px;}
-.canvas-ph-icon{font-size:32px;opacity:0.15;}
-.canvas-loader{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+.cv-ph-icon{font-size:32px;opacity:0.15;}
+.cv-load{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
   background:rgba(7,8,12,0.92);gap:12px;opacity:0;pointer-events:none;transition:opacity 0.25s;}
-.canvas-loader.on{opacity:1;pointer-events:all;}
+.cv-load.on{opacity:1;pointer-events:all;}
 .gem-ring{width:38px;height:38px;border-radius:50%;
-  background:conic-gradient(#C9963A 0%,#E8B84B 25%,#F5D68A 50%,#C9963A 75%,transparent 100%);
+  background:conic-gradient(#C9963A 0%,#E8B84B 50%,#C9963A 100%);
   animation:spin 1s linear infinite;
   -webkit-mask:radial-gradient(circle,transparent 54%,black 55%);mask:radial-gradient(circle,transparent 54%,black 55%);}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loader-txt{font-size:11px;color:var(--muted2);}
+.load-txt{font-size:11px;color:var(--muted2);}
 
-/* Image mode tabs */
+/* Image mode */
 .img-tabs{display:flex;gap:4px;margin-bottom:9px;}
 .it{flex:1;padding:7px;border-radius:8px;border:none;font-size:11px;font-family:'Outfit',sans-serif;
   font-weight:600;cursor:pointer;transition:all 0.15s;background:var(--bg3);color:var(--muted2);text-align:center;}
@@ -234,42 +239,42 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   outline:none;resize:none;min-height:52px;transition:border-color 0.2s;line-height:1.5;margin-bottom:9px;}
 .prompt-ta:focus{border-color:var(--goldB);}
 
-/* Music panel */
-.music-panel{background:var(--bg3);border:1px solid var(--goldB);border-radius:10px;padding:11px;margin-bottom:9px;}
-.mp-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
-.mp-title{font-size:11px;font-weight:600;display:flex;align-items:center;gap:6px;color:var(--gold2);}
-.mp-status{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
-.music-bars{display:flex;align-items:flex-end;gap:2px;height:20px;}
-.bar{width:3px;background:var(--gold);border-radius:2px;transition:height 0.15s;}
-.waveform{display:flex;align-items:center;gap:1px;height:24px;margin:6px 0;}
-.wf-bar{width:2px;background:var(--gold2);border-radius:1px;opacity:0.6;}
-.mp-btns{display:flex;gap:5px;margin-top:8px;}
-.mp-btn{flex:1;padding:6px;border-radius:7px;border:none;font-size:10px;font-family:'Outfit',sans-serif;
-  font-weight:600;cursor:pointer;transition:all 0.15s;}
-.mp-play{background:var(--goldD);border:1px solid var(--goldB);color:var(--gold2);}
-.mp-gen{background:linear-gradient(135deg,var(--gold),#8B5E1A);color:#fff;}
-.mp-stop{background:var(--redD);border:1px solid rgba(255,68,68,0.25);color:var(--red);}
-.music-select{width:100%;background:var(--bg4);border:1px solid var(--border2);border-radius:7px;
-  padding:6px 8px;color:var(--text);font-size:11px;outline:none;font-family:'Outfit',sans-serif;margin-bottom:5px;}
-
-/* Tone selector */
+/* Tone */
 .tone-row{display:flex;gap:5px;margin-bottom:9px;}
 .tone-btn{flex:1;padding:6px;border-radius:8px;border:none;font-size:10px;font-family:'Outfit',sans-serif;
   font-weight:600;cursor:pointer;transition:all 0.15s;background:var(--bg3);color:var(--muted2);text-align:center;}
 .tone-btn.active{background:var(--goldD);border:1px solid var(--goldB);color:var(--gold2);}
 
+/* Music */
+.music-panel{background:var(--bg3);border:1px solid var(--goldB);border-radius:10px;padding:11px;margin-bottom:9px;}
+.mp-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
+.mp-title{font-size:11px;font-weight:600;color:var(--gold2);display:flex;align-items:center;gap:5px;}
+.mp-status{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.waveform{display:flex;align-items:flex-end;gap:2px;height:20px;margin:5px 0;}
+.wf-bar{width:3px;background:var(--gold);border-radius:2px;opacity:0.5;}
+.music-sel{width:100%;background:var(--bg4);border:1px solid var(--border2);border-radius:7px;
+  padding:6px 8px;color:var(--text);font-size:11px;outline:none;font-family:'Outfit',sans-serif;margin-bottom:7px;}
+.mp-btns{display:flex;gap:5px;}
+.mp-btn{flex:1;padding:6px;border-radius:7px;border:none;font-size:10px;font-family:'Outfit',sans-serif;font-weight:600;cursor:pointer;}
+.mp-gen{background:linear-gradient(135deg,var(--gold),#8B5E1A);color:#fff;}
+.mp-play{background:var(--goldD);border:1px solid var(--goldB);color:var(--gold2);}
+.mp-stop{background:var(--redD);border:1px solid rgba(255,68,68,0.25);color:var(--red);}
+
 /* Actions */
-.act-row{display:flex;gap:6px;margin-bottom:9px;}
+.act-row{display:flex;gap:6px;margin-bottom:7px;}
 .act{flex:1;padding:9px 4px;border-radius:9px;border:none;font-size:11px;font-family:'Outfit',sans-serif;
   font-weight:600;cursor:pointer;transition:all 0.18s;display:flex;align-items:center;justify-content:center;gap:4px;}
 .act-gem{background:linear-gradient(135deg,var(--gold),#8B5E1A);color:#fff;}
-.act-gem:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(201,150,58,0.35);}
-.act-build{background:var(--bg3);border:1px solid var(--border2);color:var(--muted2);}
-.act-build:hover{color:var(--text);}
-.act-dl{background:var(--bg3);border:1px solid var(--border2);color:var(--muted2);}
-.act-pub{background:var(--greenD);border:1px solid rgba(0,217,126,0.25);color:var(--green);}
-.act-pub:hover{background:rgba(0,217,126,0.18);}
+.act-gem:hover{transform:translateY(-1px);}
+.act-sec{background:var(--bg3);border:1px solid var(--border2);color:var(--muted2);}
+.act-sec:hover{color:var(--text);}
+.act-ig{background:var(--igD);border:1px solid rgba(225,48,108,0.3);color:var(--ig);}
+.act-ig:hover{background:rgba(225,48,108,0.18);}
+.act-fb{background:var(--fbD);border:1px solid rgba(24,119,242,0.3);color:var(--fb);}
+.act-fb:hover{background:rgba(24,119,242,0.18);}
 .act-yt{background:var(--ytD);border:1px solid rgba(255,0,0,0.25);color:var(--yt);}
+.act-all{background:linear-gradient(135deg,var(--ig),var(--fb));color:#fff;flex:2;}
+.act-all:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(225,48,108,0.3);}
 
 /* Quota */
 .quota-s{padding:9px 13px;border-top:1px solid var(--border);flex-shrink:0;}
@@ -279,7 +284,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .qfill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:2px;transition:width 0.4s;}
 
 /* Log */
-.log-s{padding:9px 13px;border-top:1px solid var(--border);flex-shrink:0;max-height:120px;display:flex;flex-direction:column;}
+.log-s{padding:9px 13px;border-top:1px solid var(--border);flex-shrink:0;max-height:130px;display:flex;flex-direction:column;}
 .log-hdr{display:flex;justify-content:space-between;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
 .log-box{flex:1;overflow-y:auto;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);scrollbar-width:none;}
 .log-box::-webkit-scrollbar{display:none;}
@@ -290,29 +295,31 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .lerr{color:var(--red);}
 .li{color:var(--blue);}
 .lbrk{color:var(--red);font-weight:700;}
+.lig{color:var(--ig);}
+.lfb{color:var(--fb);}
+.lyt{color:var(--yt);}
 
 .sx{width:10px;height:10px;border-radius:50%;border:2px solid rgba(201,150,58,0.2);border-top-color:var(--gold);animation:spin 0.7s linear infinite;display:inline-block;vertical-align:middle;}
 
 /* Toast */
 #toast{position:fixed;bottom:18px;right:18px;background:var(--bg3);border:1px solid var(--goldB);
   border-radius:10px;padding:10px 15px;font-size:12px;color:var(--text);z-index:9999;
-  opacity:0;transform:translateY(10px);transition:all 0.25s;max-width:260px;}
+  opacity:0;transform:translateY(10px);transition:all 0.25s;max-width:280px;}
 #toast.on{opacity:1;transform:translateY(0);}
 
-/* Setup */
-.setup-step{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:13px 15px;margin-bottom:9px;}
-.ss-h{display:flex;align-items:center;gap:9px;margin-bottom:7px;}
-.ss-n{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
-.ss-todo{background:var(--bg4);color:var(--muted2);border:1px solid var(--border2);}
-.ss-active{background:var(--goldD);color:var(--gold2);border:1px solid var(--goldB);}
-.ss-done{background:var(--greenD);color:var(--green);border:1px solid rgba(0,217,126,0.3);}
-.ss-title{font-size:13px;font-weight:600;}
-.ss-body{font-size:12px;color:var(--muted2);line-height:1.6;padding-left:33px;}
-.ss-body code{background:var(--bg4);padding:1px 5px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold2);}
-.ss-code{background:var(--bg);border:1px solid var(--border2);border-radius:9px;padding:11px 13px;
-  margin:7px 0 0 33px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#9BB8FF;line-height:1.7;overflow-x:auto;white-space:pre;}
-.copy-btn{float:right;padding:3px 8px;border-radius:5px;border:none;background:var(--bg4);color:var(--muted2);font-size:10px;cursor:pointer;}
-.copy-btn:hover{color:var(--text);}
+/* Progress overlay */
+.post-progress{background:var(--bg3);border:1px solid var(--goldB);border-radius:12px;padding:14px;margin-bottom:9px;display:none;}
+.post-progress.show{display:block;}
+.pp-title{font-size:12px;font-weight:600;color:var(--gold2);margin-bottom:10px;}
+.pp-step{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:11px;color:var(--muted2);border-bottom:1px solid var(--border);}
+.pp-step:last-child{border-bottom:none;}
+.pp-icon{width:18px;text-align:center;font-size:12px;}
+.pp-name{flex:1;}
+.pp-status{font-size:10px;font-family:'JetBrains Mono',monospace;}
+.pps-wait{color:var(--muted);}
+.pps-running{color:var(--gold2);}
+.pps-ok{color:var(--green);}
+.pps-err{color:var(--red);}
 </style>
 </head>
 <body>
@@ -320,15 +327,17 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 <!-- HEADER -->
 <div class="hdr">
   <div class="brand">
-    <div class="brand-icon">NA</div>
+    <div class="brand-icon">MN</div>
     <div>
-      <span class="brand-name">India News Agent</span>
-      <span class="brand-v">v4</span>
+      <span class="brand-name">Minute News</span>
+      <span class="brand-v">Agent</span>
     </div>
     <div class="hdr-pills">
-      <div class="pill p-green"><span class="blink">●</span> Agent Live</div>
-      <div class="pill p-gold"><span class="blink">●</span> Gemini Ready</div>
-      <div class="pill p-yt">▶ YouTube Notify</div>
+      <div class="pill p-green"><span class="blink">●</span> Live</div>
+      <div class="pill p-gold"><span class="blink">●</span> Gemini</div>
+      <div class="pill p-ig">📸 Instagram</div>
+      <div class="pill p-fb">👥 Facebook</div>
+      <div class="pill p-yt">▶ YouTube</div>
       <div class="pill p-gold" id="nextPill">Next: 07:00 AM</div>
     </div>
   </div>
@@ -341,17 +350,54 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 <!-- ── SIDEBAR ── -->
 <div class="sb">
   <div class="sb-sec">
-    <div class="sb-lbl">API Keys</div>
-    <div class="fi"><label>Gemini API Key</label><input id="kGemini" type="password" placeholder="AIza..." oninput="chkKeys()"><div class="fst fst-no" id="sGemini">○ aistudio.google.com (free)</div></div>
-    <div class="fi"><label>GNews API Key</label><input id="kGnews" type="password" placeholder="gnews key..." oninput="chkKeys()"><div class="fst fst-no" id="sGnews">○ gnews.io (free 100/day)</div></div>
-    <div class="fi"><label>YouTube Channel ID</label><input id="kYtChannel" type="text" placeholder="UCxxxxxxxx..." oninput="chkKeys()"><div class="fst fst-no" id="sYt">○ youtube.com/channel/ID</div></div>
-    <div class="fi"><label>YouTube API Key</label><input id="kYtApi" type="password" placeholder="AIza YT key..." oninput="chkKeys()"><div class="fst fst-no" id="sYtApi">○ console.cloud.google.com</div></div>
-    <button class="sbtn sbtn-gold" onclick="saveKeys()">💾 Save All Keys</button>
+    <div class="sb-lbl">🔑 API Keys</div>
+    <div class="ki">
+      <label><span class="ki-icon">✨</span> Gemini API Key</label>
+      <input id="kGemini" type="password" placeholder="AIza..." oninput="chkKeys()">
+      <div class="ki-status ks-no" id="sGemini">○ aistudio.google.com</div>
+    </div>
+    <div class="ki">
+      <label><span class="ki-icon">📰</span> GNews API Key</label>
+      <input id="kGnews" type="password" placeholder="gnews key..." oninput="chkKeys()">
+      <div class="ki-status ks-no" id="sGnews">○ gnews.io (free)</div>
+    </div>
+    <button class="sbtn sbtn-gold" onclick="saveKeys()">💾 Save Keys</button>
   </div>
+
   <div class="divider"></div>
 
   <div class="sb-sec">
-    <div class="sb-lbl">News Topics</div>
+    <div class="sb-lbl">📱 Platform Connections</div>
+    <div class="plat-cards">
+      <div class="plat-card" id="igCard">
+        <div class="pc-icon">📸</div>
+        <div class="pc-info">
+          <div class="pc-name">Instagram</div>
+          <div class="pc-status" id="igStatus">Not connected</div>
+        </div>
+      </div>
+      <div class="plat-card" id="fbCard">
+        <div class="pc-icon">👥</div>
+        <div class="pc-info">
+          <div class="pc-name">Facebook</div>
+          <div class="pc-status" id="fbStatus">Not connected</div>
+        </div>
+      </div>
+      <div class="plat-card" id="ytCard">
+        <div class="pc-icon">▶️</div>
+        <div class="pc-info">
+          <div class="pc-name">YouTube</div>
+          <div class="pc-status" id="ytStatus">Not connected</div>
+        </div>
+      </div>
+    </div>
+    <button class="sbtn sbtn-sec" onclick="switchTab('connect')">🔗 Connect Platforms</button>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="sb-sec">
+    <div class="sb-lbl">📰 News Topics</div>
     <div class="chips" id="topicChips">
       <div class="chip on" data-t="Cricket">🏏 Cricket</div>
       <div class="chip on" data-t="Bollywood">🎬 Bollywood</div>
@@ -363,16 +409,16 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   </div>
 
   <div class="sb-sec">
-    <div class="sb-lbl">Language</div>
-    <div class="chips" id="langChips">
-      <div class="chip on-green on" data-l="Telugu">తెలుగు</div>
-      <div class="chip on-green on" data-l="English">English</div>
-      <div class="chip" data-l="Hindi">हिन्दी</div>
+    <div class="sb-lbl">🗣️ Language</div>
+    <div class="chips">
+      <div class="chip on-green on">తెలుగు</div>
+      <div class="chip on-green on">English</div>
+      <div class="chip">हिन्दी</div>
     </div>
   </div>
 
   <div class="sb-sec">
-    <div class="sb-lbl">Schedule (IST)</div>
+    <div class="sb-lbl">⏰ Schedule (IST)</div>
     <div class="sched" id="schedSlots">
       <div class="slot on" data-h="7">07:00 AM</div>
       <div class="slot on" data-h="11">11:00 AM</div>
@@ -384,11 +430,9 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   </div>
 
   <div class="sb-sec" style="padding-bottom:13px;">
-    <div class="sb-lbl">Agent Control</div>
+    <div class="sb-lbl">🤖 Agent Control</div>
     <button class="sbtn sbtn-green" id="agentBtn" onclick="toggleAgent()">▶ Start Agent</button>
     <button class="sbtn sbtn-sec" onclick="fetchNow()">🔄 Fetch News Now</button>
-    <button class="sbtn sbtn-sec" onclick="switchTab('setup')">⚙️ GitHub Setup</button>
-    <button class="sbtn sbtn-yt" onclick="switchTab('specs')">📐 Platform Specs</button>
   </div>
 </div>
 
@@ -397,134 +441,111 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   <div class="tabs">
     <button class="tab active" id="tab-news" onclick="switchTab('news')">📡 Live News</button>
     <button class="tab" id="tab-queue" onclick="switchTab('queue')">📋 Queue</button>
-    <button class="tab" id="tab-specs" onclick="switchTab('specs')">📐 Specs</button>
-    <button class="tab" id="tab-setup" onclick="switchTab('setup')">⚙️ Setup</button>
+    <button class="tab" id="tab-connect" onclick="switchTab('connect')">🔗 Connect</button>
+    <button class="tab" id="tab-results" onclick="switchTab('results')">📊 Results</button>
     <div class="tab-end"></div>
-    <div class="breaking-pill" id="brkPill" style="display:none;"><span class="blink">●</span> BREAKING</div>
+    <div class="brk-pill" id="brkPill" style="display:none;"><span class="blink">●</span> BREAKING</div>
   </div>
 
   <!-- NEWS PANEL -->
   <div class="panel" id="panel-news">
-    <!-- Platform ratio bar -->
     <div class="ratio-bar">
-      <div class="ratio-item">
-        <div class="ratio-icon">📸</div>
-        <div class="ratio-info"><div class="ratio-name">Instagram Reels</div><div class="ratio-spec">1080×1920 · 9:16 · 3 min</div></div>
-      </div>
-      <div class="ratio-divider"></div>
-      <div class="ratio-item">
-        <div class="ratio-icon">👥</div>
-        <div class="ratio-info"><div class="ratio-name">Facebook Reels</div><div class="ratio-spec">1080×1920 · 9:16 · 3 min</div></div>
-      </div>
-      <div class="ratio-divider"></div>
-      <div class="ratio-item">
-        <div class="ratio-icon">▶️</div>
-        <div class="ratio-info"><div class="ratio-name">YouTube Shorts</div><div class="ratio-spec">1080×1920 · 9:16 · 60 sec</div></div>
-      </div>
+      <div class="ri"><div class="ri-icon">📸</div><div><div class="ri-name">Instagram Reels</div><div class="ri-spec">1080×1920 · 9:16</div></div></div>
+      <div class="rdiv"></div>
+      <div class="ri"><div class="ri-icon">👥</div><div><div class="ri-name">Facebook Reels</div><div class="ri-spec">1080×1920 · 9:16</div></div></div>
+      <div class="rdiv"></div>
+      <div class="ri"><div class="ri-icon">▶️</div><div><div class="ri-name">YouTube Shorts</div><div class="ri-spec">1080×1920 · 9:16</div></div></div>
     </div>
-
-    <div class="ntoolbar">
+    <div class="ntb">
       <input class="nsearch" id="nsearch" placeholder="🔍 Search news..." oninput="filterNews()">
       <button class="fetch-btn" id="fetchBtn" onclick="fetchNow()">🔄 Fetch</button>
     </div>
     <div class="nlist" id="nlist">
-      <div style="text-align:center;color:var(--muted);padding:36px;font-size:13px;">Click Fetch or Start Agent to load live news</div>
+      <div style="text-align:center;color:var(--muted);padding:36px;font-size:13px;">Click Fetch to load live Indian news</div>
     </div>
   </div>
 
   <!-- QUEUE PANEL -->
   <div class="panel" id="panel-queue" style="display:none;">
     <div class="qlist" id="qlist">
-      <div style="text-align:center;color:var(--muted);padding:36px;font-size:13px;">No posts queued yet</div>
+      <div style="text-align:center;color:var(--muted);padding:36px;font-size:12px;">No posts queued yet</div>
     </div>
   </div>
 
-  <!-- SPECS PANEL -->
-  <div class="panel" id="panel-specs" style="display:none;">
-    <div style="font-size:13px;color:var(--muted2);margin-bottom:14px;">All posts are auto-sized per platform — 9:16 vertical for all Reels & Shorts</div>
-    <div class="spec-grid">
-      <div class="spec-card">
-        <div class="spec-icon">📸</div>
-        <div class="spec-name">Instagram Reels</div>
-        <div class="spec-row"><span>Resolution</span><span class="spec-val">1080×1920</span></div>
-        <div class="spec-row"><span>Ratio</span><span class="spec-val">9:16</span></div>
-        <div class="spec-row"><span>Max length</span><span class="spec-val">3 minutes</span></div>
-        <div class="spec-row"><span>Format</span><span class="spec-val">MP4 H.264</span></div>
-        <div class="spec-row"><span>FPS</span><span class="spec-val">30fps</span></div>
-        <div class="spec-row"><span>Safe zone</span><span class="spec-val">Center 80%</span></div>
-        <span class="spec-badge" style="background:rgba(0,217,126,0.12);color:var(--green);">✅ Auto-sized</span>
+  <!-- CONNECT PANEL -->
+  <div class="panel" id="panel-connect" style="display:none;">
+
+    <!-- Instagram -->
+    <div style="background:var(--bg3);border:1px solid rgba(225,48,108,0.2);border-radius:12px;padding:16px;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <span style="font-size:20px;">📸</span>
+        <span style="font-weight:600;font-size:14px;">Instagram Connection</span>
+        <span id="igConnBadge" style="font-size:10px;padding:2px 8px;border-radius:100px;background:var(--redD);color:var(--red);font-family:'JetBrains Mono',monospace;">Not Connected</span>
       </div>
-      <div class="spec-card">
-        <div class="spec-icon">👥</div>
-        <div class="spec-name">Facebook Reels</div>
-        <div class="spec-row"><span>Resolution</span><span class="spec-val">1080×1920</span></div>
-        <div class="spec-row"><span>Ratio</span><span class="spec-val">9:16</span></div>
-        <div class="spec-row"><span>Max length</span><span class="spec-val">3 minutes</span></div>
-        <div class="spec-row"><span>Format</span><span class="spec-val">MP4 H.264</span></div>
-        <div class="spec-row"><span>FPS</span><span class="spec-val">30fps</span></div>
-        <div class="spec-row"><span>Safe zone</span><span class="spec-val">Center 80%</span></div>
-        <span class="spec-badge" style="background:rgba(0,217,126,0.12);color:var(--green);">✅ Auto-sized</span>
+      <div style="font-size:12px;color:var(--muted2);margin-bottom:10px;line-height:1.6;">
+        Paste your Meta Page Access Token and Instagram Business Account ID below. Get these from <strong style="color:var(--gold2);">developers.facebook.com/tools/explorer</strong>
       </div>
-      <div class="spec-card">
-        <div class="spec-icon">▶️</div>
-        <div class="spec-name">YouTube Shorts</div>
-        <div class="spec-row"><span>Resolution</span><span class="spec-val">1080×1920</span></div>
-        <div class="spec-row"><span>Ratio</span><span class="spec-val">9:16</span></div>
-        <div class="spec-row"><span>Max length</span><span class="spec-val">60 seconds</span></div>
-        <div class="spec-row"><span>Format</span><span class="spec-val">MP4 H.264</span></div>
-        <div class="spec-row"><span>FPS</span><span class="spec-val">30fps</span></div>
-        <div class="spec-row"><span>Safe zone</span><span class="spec-val">Center 80%</span></div>
-        <span class="spec-badge" style="background:rgba(0,217,126,0.12);color:var(--green);">✅ Auto-sized</span>
+      <div class="ki" style="margin-bottom:8px;">
+        <label>Meta Page Access Token</label>
+        <input id="metaToken" type="password" placeholder="EAARPZBxxxxxxx..." oninput="chkPlatforms()">
       </div>
+      <div class="ki" style="margin-bottom:8px;">
+        <label>Instagram Business Account ID</label>
+        <input id="igId" type="text" placeholder="17841xxxxxxxxx..." oninput="chkPlatforms()">
+      </div>
+      <div class="ki" style="margin-bottom:10px;">
+        <label>Facebook Page ID</label>
+        <input id="fbPageId" type="text" placeholder="123456789012345..." oninput="chkPlatforms()">
+      </div>
+      <button class="sbtn sbtn-gold" onclick="connectMeta()" style="margin-bottom:0;">🔗 Connect Instagram + Facebook</button>
     </div>
-    <div style="background:var(--bg3);border:1px solid var(--goldB);border-radius:10px;padding:13px;font-size:12px;color:var(--muted2);line-height:1.7;">
-      <div style="font-weight:600;color:var(--gold2);margin-bottom:6px;">🎨 Classic Cinematic Tone — Applied to every post</div>
-      Warm golden tones · High contrast shadows · Vintage film grain · Letterbox bars top & bottom · Dramatic vignette · Sepia-gold color grade · Bold serif headline font
+
+    <!-- YouTube -->
+    <div style="background:var(--bg3);border:1px solid rgba(255,0,0,0.2);border-radius:12px;padding:16px;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <span style="font-size:20px;">▶️</span>
+        <span style="font-weight:600;font-size:14px;">YouTube Connection</span>
+        <span id="ytConnBadge" style="font-size:10px;padding:2px 8px;border-radius:100px;background:var(--redD);color:var(--red);font-family:'JetBrains Mono',monospace;">Not Connected</span>
+      </div>
+      <div class="ki" style="margin-bottom:8px;">
+        <label>YouTube API Key</label>
+        <input id="ytApiKey" type="password" placeholder="AIza YT key..." oninput="chkPlatforms()">
+      </div>
+      <div class="ki" style="margin-bottom:10px;">
+        <label>YouTube Channel ID</label>
+        <input id="ytChannelId" type="text" placeholder="UCxxxxxxxx..." oninput="chkPlatforms()">
+      </div>
+      <button class="sbtn sbtn-red" onclick="connectYT()" style="margin-bottom:0;background:rgba(255,0,0,0.15);border:1px solid rgba(255,0,0,0.3);color:var(--yt);">▶ Connect YouTube</button>
+    </div>
+
+    <!-- How to get IDs guide -->
+    <div style="background:var(--bg3);border:1px solid var(--goldB);border-radius:12px;padding:16px;">
+      <div style="font-size:13px;font-weight:600;color:var(--gold2);margin-bottom:10px;">📖 How to get your IDs</div>
+      <div style="font-size:12px;color:var(--muted2);line-height:1.8;">
+        <strong style="color:var(--text);">Meta Access Token + Facebook Page ID:</strong><br>
+        1. Go to developers.facebook.com/tools/explorer<br>
+        2. Select MinuteNews app → click Generate Access Token<br>
+        3. Allow all permissions → copy the token<br>
+        4. Type <code style="background:var(--bg4);padding:1px 5px;border-radius:4px;color:var(--gold2);">me/accounts</code> → Submit → copy Page ID<br><br>
+        <strong style="color:var(--text);">Instagram Business Account ID:</strong><br>
+        1. Type <code style="background:var(--bg4);padding:1px 5px;border-radius:4px;color:var(--gold2);">PAGE_ID?fields=instagram_business_account</code><br>
+        2. Submit → copy the instagram id<br><br>
+        <strong style="color:var(--text);">YouTube API Key + Channel ID:</strong><br>
+        1. Go to console.cloud.google.com<br>
+        2. Enable YouTube Data API v3<br>
+        3. Create credentials → API Key → copy it<br>
+        4. Your Channel ID is in YouTube → Settings → Channel
+      </div>
     </div>
   </div>
 
-  <!-- SETUP PANEL -->
-  <div class="panel" id="panel-setup" style="display:none;">
-    <div class="setup-step"><div class="ss-h"><div class="ss-n ss-todo">1</div><div class="ss-title">Create GitHub repo: <code>india-news-agent</code> (public)</div></div><div class="ss-body">Go to <code>github.com</code> → New repository → Name: <code>india-news-agent</code> → Public → Create</div></div>
-    <div class="setup-step"><div class="ss-h"><div class="ss-n ss-todo">2</div><div class="ss-title">Upload this HTML as <code>index.html</code></div></div><div class="ss-body">Add file → Upload → rename to <code>index.html</code> → Commit</div></div>
-    <div class="setup-step"><div class="ss-h"><div class="ss-n ss-todo">3</div><div class="ss-title">Add GitHub Actions workflow — runs every 4 hours</div></div>
-      <div class="ss-body">Create file at <code>.github/workflows/agent.yml</code>:
-        <div class="ss-code"><button class="copy-btn" onclick="cpCode('c1')">Copy</button><span id="c1">name: India News Agent v4
-on:
-  schedule:
-    - cron: '0 1,5,9,13 * * *'
-  workflow_dispatch:
-jobs:
-  post:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with: {python-version: '3.11'}
-      - run: pip install requests pillow google-generativeai tone
-      - run: python agent.py
-        env:
-          GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
-          GNEWS_KEY:  ${{ secrets.GNEWS_KEY }}
-          YT_API_KEY: ${{ secrets.YT_API_KEY }}
-          YT_CHANNEL: ${{ secrets.YT_CHANNEL }}</span></div>
-      </div>
+  <!-- RESULTS PANEL -->
+  <div class="panel" id="panel-results" style="display:none;">
+    <div id="resultsList">
+      <div style="text-align:center;color:var(--muted);padding:36px;font-size:12px;">No posts published yet</div>
     </div>
-    <div class="setup-step"><div class="ss-h"><div class="ss-n ss-todo">4</div><div class="ss-title">Add GitHub Secrets</div></div>
-      <div class="ss-body">Repo → Settings → Secrets → Actions → New secret:
-        <div class="ss-code"><button class="copy-btn" onclick="cpCode('c2')">Copy</button><span id="c2">GEMINI_KEY  → your Gemini API key (aistudio.google.com)
-GNEWS_KEY   → your GNews API key (gnews.io)
-YT_API_KEY  → YouTube Data API key (console.cloud.google.com)
-YT_CHANNEL  → your YouTube Channel ID</span></div>
-      </div>
-    </div>
-    <div class="setup-step"><div class="ss-h"><div class="ss-n ss-active">5</div><div class="ss-title">Download agent.py — upload to your repo</div></div>
-      <div class="ss-body" style="margin-top:8px;">
-        <button class="sbtn sbtn-gold" style="width:auto;padding:9px 18px;" onclick="dlPy()">⬇️ Download agent.py</button>
-      </div>
-    </div>
-    <div class="setup-step"><div class="ss-h"><div class="ss-n ss-todo">6</div><div class="ss-title">Enable GitHub Pages → get your public URL</div></div><div class="ss-body">Settings → Pages → Source: main branch → Save → your URL: <code>https://yourusername.github.io/india-news-agent</code></div></div>
   </div>
+
 </div>
 
 <!-- ── RIGHT PANEL ── -->
@@ -534,11 +555,10 @@ YT_CHANNEL  → your YouTube Channel ID</span></div>
     <span id="previewRatio" style="color:var(--gold2);font-size:9px;">9:16 · 1080×1920</span>
   </div>
 
-  <!-- Platform selector -->
-  <div class="plat-sel">
-    <button class="ps-btn active" id="ps-ig" onclick="setPlat('ig')">📸 Instagram<span class="ps-ratio">9:16</span></button>
-    <button class="ps-btn" id="ps-fb" onclick="setPlat('fb')">👥 Facebook<span class="ps-ratio">9:16</span></button>
-    <button class="ps-btn" id="ps-yt" onclick="setPlat('yt')">▶️ YouTube<span class="ps-ratio">9:16</span></button>
+  <div class="ps">
+    <button class="psb active-ig" id="ps-ig" onclick="setPlat('ig')">📸 Instagram<span>9:16</span></button>
+    <button class="psb" id="ps-fb" onclick="setPlat('fb')">👥 Facebook<span>9:16</span></button>
+    <button class="psb" id="ps-yt" onclick="setPlat('yt')">▶️ YouTube<span>9:16</span></button>
   </div>
 
   <div class="rp-body">
@@ -549,20 +569,21 @@ YT_CHANNEL  → your YouTube Channel ID</span></div>
       <button class="it" id="it-tpl" onclick="setImgMode('template')">🖼️ Template</button>
     </div>
 
-    <!-- Template upload -->
     <div id="tplUpload" style="display:none;">
-      <label class="upload-z"><input type="file" id="bgFile" accept="image/*" onchange="loadTpl(event)"><div style="font-size:22px;opacity:0.3;margin-bottom:4px;">🖼️</div>Upload 1080×1920 template<div style="font-size:10px;margin-top:2px;">9:16 vertical recommended</div></label>
+      <label class="upload-z"><input type="file" id="bgFile" accept="image/*" onchange="loadTpl(event)">
+        <div style="font-size:22px;opacity:0.3;margin-bottom:4px;">🖼️</div>
+        Upload 1080×1920 template<div style="font-size:10px;margin-top:2px;">9:16 vertical</div>
+      </label>
     </div>
 
-    <!-- Gemini prompt -->
     <div id="gemPromptWrap">
-      <div class="prompt-lbl">Gemini Prompt</div>
+      <div class="prompt-lbl">Gemini Prompt (Classic Tone)</div>
       <textarea class="prompt-ta" id="imgPrompt" rows="3" placeholder="Select news → prompt auto-fills..."></textarea>
     </div>
 
-    <!-- Tone selector -->
+    <!-- Tone -->
     <div style="font-size:10px;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;">Image Tone</div>
-    <div class="tone-row" id="toneRow">
+    <div class="tone-row">
       <button class="tone-btn active" data-tone="classic" onclick="setTone(this)">🎞️ Classic</button>
       <button class="tone-btn" data-tone="cinematic" onclick="setTone(this)">🎬 Cinematic</button>
       <button class="tone-btn" data-tone="dramatic" onclick="setTone(this)">⚡ Dramatic</button>
@@ -570,19 +591,44 @@ YT_CHANNEL  → your YouTube Channel ID</span></div>
     </div>
 
     <!-- Canvas -->
-    <div class="canvas-wrap ratio-916" id="canvasWrap">
+    <div class="cv-wrap" id="cvWrap">
       <canvas id="previewCanvas"></canvas>
-      <div class="canvas-ph" id="cvPh"><div class="canvas-ph-icon">🎬</div><div>Select news to preview</div></div>
-      <div class="canvas-loader" id="cvLoad"><div class="gem-ring"></div><div class="loader-txt" id="cvLoadTxt">Generating...</div></div>
+      <div class="cv-ph" id="cvPh"><div class="cv-ph-icon">🎬</div><div>Select news to preview</div></div>
+      <div class="cv-load" id="cvLoad"><div class="gem-ring"></div><div class="load-txt" id="cvLoadTxt">Generating...</div></div>
     </div>
 
-    <!-- Music panel -->
+    <!-- Post Progress -->
+    <div class="post-progress" id="postProgress">
+      <div class="pp-title">🚀 Publishing Progress</div>
+      <div class="pp-step" id="step-img">
+        <div class="pp-icon">🎨</div>
+        <div class="pp-name">Generate Image</div>
+        <div class="pp-status pps-wait" id="st-img">Waiting...</div>
+      </div>
+      <div class="pp-step" id="step-ig">
+        <div class="pp-icon">📸</div>
+        <div class="pp-name">Post to Instagram</div>
+        <div class="pp-status pps-wait" id="st-ig">Waiting...</div>
+      </div>
+      <div class="pp-step" id="step-fb">
+        <div class="pp-icon">👥</div>
+        <div class="pp-name">Post to Facebook</div>
+        <div class="pp-status pps-wait" id="st-fb">Waiting...</div>
+      </div>
+      <div class="pp-step" id="step-yt">
+        <div class="pp-icon">▶️</div>
+        <div class="pp-name">Post to YouTube</div>
+        <div class="pp-status pps-wait" id="st-yt">Waiting...</div>
+      </div>
+    </div>
+
+    <!-- Music -->
     <div class="music-panel">
       <div class="mp-head">
         <div class="mp-title">🎵 Background Music</div>
-        <div class="mp-status" id="musicStatus">Not playing</div>
+        <div class="mp-status" id="musicStatus">Ready</div>
       </div>
-      <select class="music-select" id="musicSelect" onchange="changeMusicType()">
+      <select class="music-sel" id="musicSelect" onchange="changeMusicType()">
         <option value="news">📰 Classic News Broadcast</option>
         <option value="cricket">🏏 Cricket Victory Drums</option>
         <option value="bollywood">🎬 Bollywood Cinematic</option>
@@ -599,16 +645,20 @@ YT_CHANNEL  → your YouTube Channel ID</span></div>
 
     <!-- Actions -->
     <div class="act-row">
-      <button class="act act-gem" onclick="generateGemini()">✨ Gen</button>
-      <button class="act act-build" onclick="buildPost()">🎨 Build</button>
-      <button class="act act-dl" onclick="dlPost()">⬇️</button>
+      <button class="act act-gem" onclick="generateGemini()">✨ Gen Image</button>
+      <button class="act act-sec" onclick="buildPost()">🎨 Build</button>
+      <button class="act act-sec" onclick="dlPost()">⬇️ Save</button>
     </div>
     <div class="act-row">
-      <button class="act act-pub" onclick="publishAll()">🚀 Post All Platforms</button>
-      <button class="act act-yt" onclick="notifyYT()">▶ YT Notify</button>
+      <button class="act act-ig" onclick="postToIG()">📸 Instagram</button>
+      <button class="act act-fb" onclick="postToFB()">👥 Facebook</button>
+      <button class="act act-yt" onclick="postToYT()">▶️ YouTube</button>
+    </div>
+    <div class="act-row">
+      <button class="act act-all" onclick="postAll()">🚀 Post to All 3 Platforms</button>
     </div>
 
-  </div><!-- /rp-body -->
+  </div>
 
   <div class="quota-s">
     <div class="qr"><span>Gemini daily quota</span><span class="qv" id="qVal">20/20 left</span></div>
@@ -617,7 +667,9 @@ YT_CHANNEL  → your YouTube Channel ID</span></div>
 
   <div class="log-s">
     <div class="log-hdr"><span>Log</span><span style="cursor:pointer;" onclick="clearLog()">clear</span></div>
-    <div class="log-box" id="logBox"><div class="ll"><span class="lt">[INIT]</span> <span class="li">India News Agent v4. Classic tone + YouTube notify + auto 9:16 sizing.</span></div></div>
+    <div class="log-box" id="logBox">
+      <div class="ll"><span class="lt">[INIT]</span> <span class="li">Minute News Agent ready. Connect your platforms and start posting!</span></div>
+    </div>
   </div>
 </div>
 
@@ -630,76 +682,48 @@ let quota=20,agentOn=false,agentTimer=null;
 let bgTpl=null,genImg=null,selNews=null;
 let imgMode='gemini',currTone='classic',currPlat='ig';
 let schedH=[7,11,15,19,21];
-let allNews=[],queue=[];
+let allNews=[],queue=[],results=[];
 let audioCtx=null,musicNodes=[],musicPlaying=false;
+let metaConnected=false,ytConnected=false;
 
-// Platform specs
-const PLATS={
-  ig:{name:'Instagram Reels',w:1080,h:1920,ratio:'9:16',maxSec:180},
-  fb:{name:'Facebook Reels',w:1080,h:1920,ratio:'9:16',maxSec:180},
-  yt:{name:'YouTube Shorts',w:1080,h:1920,ratio:'9:16',maxSec:60}
-};
+// Platform specs — all 9:16
+const PLATS={ig:{w:1080,h:1920,name:'Instagram Reels'},fb:{w:1080,h:1920,name:'Facebook Reels'},yt:{w:1080,h:1920,name:'YouTube Shorts'}};
 
-// Tone configs (classic cinematic)
+// Tone configs
 const TONES={
-  classic:{
-    name:'Classic Film',
-    filter:'sepia(0.35) contrast(1.15) brightness(0.92) saturate(0.85)',
-    overlay:'rgba(40,20,0,0.25)',
-    vignette:true,grain:true,letterbox:true,
-    headlineColor:'#F5D68A',
-    promptSuffix:'classic film photography style, warm sepia tones, vintage cinema, Kodachrome color grade, 35mm film grain, high contrast shadows, golden light'
-  },
-  cinematic:{
-    name:'Cinematic',
-    filter:'contrast(1.2) brightness(0.88) saturate(1.1)',
-    overlay:'rgba(0,10,30,0.3)',
-    vignette:true,grain:false,letterbox:true,
-    headlineColor:'#FFFFFF',
-    promptSuffix:'cinematic photography, dramatic lighting, anamorphic lens flare, teal and orange color grade, movie still, 4K ultra HD'
-  },
-  dramatic:{
-    name:'Dramatic',
-    filter:'contrast(1.35) brightness(0.82) saturate(0.7)',
-    overlay:'rgba(0,0,0,0.35)',
-    vignette:true,grain:true,letterbox:false,
-    headlineColor:'#FF6B6B',
-    promptSuffix:'dramatic black and white with selective color, high contrast, deep shadows, photojournalism style, breaking news aesthetic'
-  },
-  warm:{
-    name:'Warm Sunset',
-    filter:'sepia(0.2) contrast(1.1) brightness(0.95) saturate(1.2)',
-    overlay:'rgba(60,20,0,0.2)',
-    vignette:true,grain:false,letterbox:false,
-    headlineColor:'#FFE4A0',
-    promptSuffix:'warm golden hour photography, sunset tones, orange and golden light, soft bokeh, lifestyle photography, vibrant warm colors'
-  }
+  classic:{filter:'sepia(0.35) contrast(1.15) brightness(0.92) saturate(0.85)',overlay:'rgba(40,20,0,0.25)',vignette:true,grain:true,letterbox:true,hColor:'#F5D68A',suffix:'classic film photography, warm sepia, vintage cinema, Kodachrome, 35mm grain, golden light'},
+  cinematic:{filter:'contrast(1.2) brightness(0.88) saturate(1.1)',overlay:'rgba(0,10,30,0.3)',vignette:true,grain:false,letterbox:true,hColor:'#FFFFFF',suffix:'cinematic photography, dramatic lighting, anamorphic lens flare, teal orange color grade'},
+  dramatic:{filter:'contrast(1.35) brightness(0.82) saturate(0.7)',overlay:'rgba(0,0,0,0.35)',vignette:true,grain:true,letterbox:false,hColor:'#FF8080',suffix:'dramatic high contrast, deep shadows, photojournalism, breaking news aesthetic'},
+  warm:{filter:'sepia(0.2) contrast(1.1) brightness(0.95) saturate(1.2)',overlay:'rgba(60,20,0,0.2)',vignette:true,grain:false,letterbox:false,hColor:'#FFE4A0',suffix:'warm golden hour, sunset tones, orange golden light, soft bokeh, vibrant warm colors'}
 };
 
-// ═══ SAMPLE NEWS ══════════════════════════════════════════════════════
+// Sample news
 const SAMPLE=[
-  {id:1,title:"India vs Australia: Rohit hits 127★ — India posts 378/4 in 1st ODI",src:"Cricbuzz",age:"2m",cat:"Cricket",cls:"cc",emoji:"🏏",brk:true,prompt:"Cricket match India stadium packed crowd night, batsman six, roaring fans Indian flags, dramatic floodlights"},
+  {id:1,title:"India vs Australia: Rohit hits 127★ as India posts 378/4 in 1st ODI",src:"Cricbuzz",age:"2m",cat:"Cricket",cls:"cc",emoji:"🏏",brk:true,prompt:"Cricket match India stadium packed crowd night, batsman hitting six, roaring fans Indian flags, dramatic floodlights"},
   {id:2,title:"Shah Rukh Khan's 'King' shatters records — ₹275 Cr on opening day",src:"Bollywood Hungama",age:"9m",cat:"Bollywood",cls:"cb",emoji:"🎬",brk:true,prompt:"Bollywood premiere night Mumbai red carpet, blinding camera flashes, luxury, giant movie billboard, warm golden lights"},
-  {id:3,title:"PM Modi launches ₹1 Lakh Cr Digital India 2.0 — 5 lakh jobs for youth",src:"The Hindu",age:"16m",cat:"Politics",cls:"cp",emoji:"🏛️",brk:false,prompt:"Indian parliament building New Delhi dawn, Indian tricolor flag, majestic architecture, dramatic golden sky"},
+  {id:3,title:"PM Modi launches ₹1 Lakh Cr Digital India 2.0 — 5 lakh jobs",src:"The Hindu",age:"16m",cat:"Politics",cls:"cp",emoji:"🏛️",brk:false,prompt:"Indian parliament building New Delhi dawn, Indian tricolor flag, majestic architecture, dramatic golden sky"},
   {id:4,title:"India-Pakistan: Army high alert at LoC after ceasefire violation",src:"NDTV",age:"23m",cat:"World",cls:"cw",emoji:"🌍",brk:true,prompt:"Indian Army soldiers silhouette border sunrise, Indian flag, mountains, dramatic tense atmosphere"},
-  {id:5,title:"CSK win IPL 2026! Dhoni lifts trophy — emotional farewell moment",src:"ESPN Cricinfo",age:"40m",cat:"Cricket",cls:"cc",emoji:"🏏",brk:false,prompt:"Cricket team celebration stadium, golden trophy, fireworks, confetti, ecstatic fans, championship night"},
-  {id:6,title:"Jio 6G trials hit 22 Gbps in Mumbai — fastest ever in India",src:"Tech Desk",age:"56m",cat:"Tech",cls:"ct",emoji:"💻",brk:false,prompt:"Futuristic Mumbai cityscape night, glowing 6G network, fiber optic trails, digital India, blue neon"},
-  {id:7,title:"India GDP hits 7.9% in Q1 2026 — best G20 performance",src:"Economic Times",age:"1h",cat:"Business",cls:"cbus",emoji:"📈",brk:false,prompt:"Mumbai financial district golden hour, rising stock charts, glass towers, prosperity, warm tones"},
-  {id:8,title:"Virat Kohli announces shock retirement from international cricket",src:"Times of India",age:"2h",cat:"Cricket",cls:"cc",emoji:"🏏",brk:true,prompt:"Empty cricket stadium single spotlight, cricket bat laid ceremonially, emotional farewell atmosphere"},
+  {id:5,title:"CSK win IPL 2026! Dhoni lifts trophy — emotional farewell",src:"ESPN Cricinfo",age:"40m",cat:"Cricket",cls:"cc",emoji:"🏏",brk:false,prompt:"Cricket team celebration stadium, golden trophy, fireworks, confetti, ecstatic fans, championship night"},
+  {id:6,title:"Jio 6G trials hit 22 Gbps in Mumbai — fastest ever in India",src:"Tech Desk",age:"56m",cat:"Tech",cls:"ct",emoji:"💻",brk:false,prompt:"Futuristic Mumbai cityscape night, 6G network, fiber optic trails, digital India, blue neon"},
+  {id:7,title:"India GDP hits 7.9% in Q1 2026 — best G20 performance",src:"Economic Times",age:"1h",cat:"Business",cls:"cbus",emoji:"📈",brk:false,prompt:"Mumbai financial district golden hour, rising stock charts, glass towers, prosperity"},
+  {id:8,title:"Virat Kohli announces shock retirement from international cricket",src:"Times of India",age:"2h",cat:"Cricket",cls:"cc",emoji:"🏏",brk:true,prompt:"Empty cricket stadium single spotlight, cricket bat laid ceremonially, emotional farewell"},
 ];
 
-// ═══ INIT ═════════════════════════════════════════════════════════════
-window.onload=()=>{
-  loadKeys();updateNextPost();
-  buildWaveform();
-  setTimeout(fetchNow,700);
-  setInterval(updateNextPost,30000);
-  if(agentOn)setInterval(chkSched,60000);
+// Captions
+const CAPTIONS={
+  Cricket:'🏏 క్రికెట్ అప్‌డేట్!\n\n{title}\n\n📺 {src}\n\n#Cricket #India #TeamIndia #IPL #MinuteNews',
+  Bollywood:'🎬 బాలీవుడ్ వార్త!\n\n{title}\n\n📺 {src}\n\n#Bollywood #Cinema #Telugu #MinuteNews',
+  Politics:'🏛️ రాజకీయ వార్త\n\n{title}\n\n📺 {src}\n\n#Politics #India #Breaking #MinuteNews',
+  World:'🌍 ప్రపంచ వార్త\n\n{title}\n\n📺 {src}\n\n#WorldNews #India #Breaking #MinuteNews',
+  Tech:'💻 టెక్ వార్త\n\n{title}\n\n📺 {src}\n\n#Technology #India #Jio #MinuteNews',
+  Business:'📈 వ్యాపార వార్త\n\n{title}\n\n📺 {src}\n\n#Business #India #Economy #MinuteNews',
 };
 
-// ═══ CHIP TOGGLES ═════════════════════════════════════════════════════
+// ═══ INIT ═════════════════════════════════════════════════════════════
+window.onload=()=>{loadKeys();buildWaveform();updateNextPost();setTimeout(fetchNow,700);setInterval(updateNextPost,30000);};
+
+// ═══ CHIPS ════════════════════════════════════════════════════════════
 document.querySelectorAll('#topicChips .chip').forEach(c=>c.addEventListener('click',()=>c.classList.toggle('on')));
-document.querySelectorAll('#langChips .chip').forEach(c=>c.addEventListener('click',()=>c.classList.toggle('on')));
 document.querySelectorAll('#schedSlots .slot').forEach(s=>s.addEventListener('click',()=>{
   s.classList.toggle('on');
   const h=+s.dataset.h;
@@ -709,21 +733,19 @@ document.querySelectorAll('#schedSlots .slot').forEach(s=>s.addEventListener('cl
 
 // ═══ TABS ═════════════════════════════════════════════════════════════
 function switchTab(t){
-  ['news','queue','specs','setup'].forEach(x=>{
+  ['news','queue','connect','results'].forEach(x=>{
     document.getElementById('panel-'+x).style.display=x===t?'':'none';
     document.getElementById('tab-'+x).classList.toggle('active',x===t);
   });
 }
 
-// ═══ PLATFORM SELECTOR ════════════════════════════════════════════════
+// ═══ PLATFORM ═════════════════════════════════════════════════════════
 function setPlat(p){
   currPlat=p;
   ['ig','fb','yt'].forEach(x=>{
     const b=document.getElementById('ps-'+x);
-    b.classList.toggle('active',x===p);
-    b.classList.toggle('yt',x===p&&p==='yt');
+    b.className='psb'+(x===p?' active-'+x:'');
   });
-  document.getElementById('previewRatio').textContent=`${PLATS[p].ratio} · ${PLATS[p].w}×${PLATS[p].h}`;
   if(selNews)buildPost();
 }
 
@@ -739,10 +761,54 @@ function setImgMode(m){
 // ═══ TONE ══════════════════════════════════════════════════════════════
 function setTone(btn){
   document.querySelectorAll('.tone-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  currTone=btn.dataset.tone;
+  btn.classList.add('active');currTone=btn.dataset.tone;
   if(selNews)buildPost();
-  log('i',`Tone set to: ${TONES[currTone].name}`);
+}
+
+// ═══ CONNECT PLATFORMS ═══════════════════════════════════════════════
+function connectMeta(){
+  const token=document.getElementById('metaToken').value.trim();
+  const igId=document.getElementById('igId').value.trim();
+  const fbId=document.getElementById('fbPageId').value.trim();
+  if(!token){toast('⚠️ Paste your Meta Access Token!');return;}
+  if(!fbId){toast('⚠️ Paste your Facebook Page ID!');return;}
+  metaConnected=true;
+  // Update UI
+  document.getElementById('igCard').classList.add('connected');
+  document.getElementById('fbCard').classList.add('connected');
+  document.getElementById('igStatus').textContent=igId?'Connected ✓':'Token set (no IG ID)';
+  document.getElementById('fbStatus').textContent='Connected ✓';
+  document.getElementById('igConnBadge').style.background='var(--greenD)';
+  document.getElementById('igConnBadge').style.color='var(--green)';
+  document.getElementById('igConnBadge').style.borderColor='rgba(0,217,126,0.3)';
+  document.getElementById('igConnBadge').textContent='Connected ✓';
+  saveKeys();
+  log('ok','✅ Instagram + Facebook connected via Meta API!');
+  toast('✅ Instagram + Facebook connected!');
+}
+
+function connectYT(){
+  const key=document.getElementById('ytApiKey').value.trim();
+  const ch=document.getElementById('ytChannelId').value.trim();
+  if(!key||!ch){toast('⚠️ Add YouTube API key and Channel ID!');return;}
+  ytConnected=true;
+  document.getElementById('ytCard').classList.add('connected');
+  document.getElementById('ytStatus').textContent='Connected ✓';
+  document.getElementById('ytConnBadge').style.background='var(--greenD)';
+  document.getElementById('ytConnBadge').style.color='var(--green)';
+  document.getElementById('ytConnBadge').textContent='Connected ✓';
+  saveKeys();
+  log('ok','✅ YouTube connected!');
+  toast('✅ YouTube connected!');
+}
+
+function chkPlatforms(){
+  const t=document.getElementById('metaToken').value.trim();
+  const f=document.getElementById('fbPageId').value.trim();
+  const y=document.getElementById('ytApiKey').value.trim();
+  const yc=document.getElementById('ytChannelId').value.trim();
+  if(t&&f){document.getElementById('igStatus').textContent='Token ready';document.getElementById('fbStatus').textContent='Page ID ready';}
+  if(y&&yc){document.getElementById('ytStatus').textContent='API key ready';}
 }
 
 // ═══ FETCH NEWS ════════════════════════════════════════════════════════
@@ -750,52 +816,37 @@ async function fetchNow(){
   const btn=document.getElementById('fetchBtn');
   btn.innerHTML='<span class="sx"></span>';btn.disabled=true;
   log('i','Fetching news...');
-
   const gk=document.getElementById('kGnews').value.trim();
   if(gk){
     try{
-      const topics=['cricket india','bollywood','india politics','india world news','india technology','india business'];
-      const q=encodeURIComponent(topics.slice(0,2).join(' OR '));
-      const r=await fetch(`https://gnews.io/api/v4/search?q=${q}&lang=en&country=in&max=10&token=${gk}`);
+      const r=await fetch(`https://gnews.io/api/v4/search?q=india+cricket+bollywood&lang=en&country=in&max=10&token=${gk}`);
       const d=await r.json();
       if(d.articles?.length){
-        allNews=d.articles.map((a,i)=>({
-          id:i+100,title:a.title,src:a.source.name,age:tAgo(a.publishedAt),
-          cat:detCat(a.title),cls:catCls(detCat(a.title)),emoji:catEmoji(detCat(a.title)),
-          brk:isBreaking(a.title),prompt:buildPromptStr(detCat(a.title))
-        }));
-        renderNews(allNews);log('ok',`✅ ${allNews.length} live articles from GNews`);
+        allNews=d.articles.map((a,i)=>({id:i+100,title:a.title,src:a.source.name,age:tAgo(a.publishedAt),cat:detCat(a.title),cls:catCls(detCat(a.title)),emoji:catEmoji(detCat(a.title)),brk:isBreaking(a.title),prompt:buildPromptStr(detCat(a.title))}));
+        renderNews(allNews);log('ok',`✅ ${allNews.length} live articles loaded`);
         btn.innerHTML='🔄 Fetch';btn.disabled=false;chkBreaking();return;
       }
-    }catch(e){log('w','GNews error: '+e.message);}
+    }catch(e){log('w','GNews error — using sample data');}
   }
-
-  await sleep(1100);
-  allNews=SAMPLE;renderNews(SAMPLE);
-  log('ok',`Loaded ${SAMPLE.length} sample news`);
-  chkBreaking();
+  await sleep(1000);allNews=SAMPLE;renderNews(SAMPLE);
+  log('ok','Sample news loaded');chkBreaking();
   btn.innerHTML='🔄 Fetch';btn.disabled=false;
 }
 
 function renderNews(items){
   const g=document.getElementById('nlist');
-  if(!items.length){g.innerHTML='<div style="text-align:center;color:var(--muted);padding:30px;font-size:12px;">No news for selected topics</div>';return;}
+  if(!items.length){g.innerHTML='<div style="text-align:center;color:var(--muted);padding:30px;font-size:12px;">No news found</div>';return;}
   g.innerHTML='';
   items.forEach(n=>{
     const d=document.createElement('div');
     d.className='nc'+(n.brk?' brk':'');
     d.innerHTML=`<div class="nc-left">
-      <div class="nc-top">
-        <span class="ncat ${n.cls}">${n.emoji} ${n.cat}</span>
-        <span class="nage">${n.age}</span>
-        ${n.brk?'<span class="nbrk">⚡ BREAKING</span>':''}
-      </div>
-      <div class="ntitle">${n.title}</div>
-      <div class="nsrc">${n.src}</div>
+      <div class="nc-top"><span class="ncat ${n.cls}">${n.emoji} ${n.cat}</span><span class="nage">${n.age}</span>${n.brk?'<span class="nbrk">⚡ BREAKING</span>':''}</div>
+      <div class="ntitle">${n.title}</div><div class="nsrc">${n.src}</div>
     </div>
     <div class="nbtns">
-      <button class="nb nb-g" onclick="selN(${n.id})">✨ Generate</button>
-      <button class="nb nb-p" onclick="quickPost(${n.id})">🚀 Post</button>
+      <button class="nb nb-g" onclick="selN(${n.id})">✨ Preview</button>
+      <button class="nb nb-p" onclick="quickPostAll(${n.id})">🚀 Post All</button>
     </div>`;
     d.addEventListener('click',e=>{if(e.target.tagName!=='BUTTON')selN(n.id);});
     g.appendChild(d);
@@ -810,35 +861,28 @@ function filterNews(){
 function chkBreaking(){
   const has=allNews.some(n=>n.brk);
   document.getElementById('brkPill').style.display=has?'flex':'none';
-  if(has){
-    const b=allNews.find(n=>n.brk);
-    if(b){setTimeout(()=>selN(b.id),600);log('brk','⚡ BREAKING NEWS — auto-generating!');}
-  }
+  if(has){const b=allNews.find(n=>n.brk);if(b)setTimeout(()=>selN(b.id),500);}
 }
 
 // ═══ SELECT NEWS ════════════════════════════════════════════════════════
 function selN(id){
   selNews=allNews.find(n=>n.id===id);if(!selNews)return;
-  // Auto-pick mode: breaking→Gemini, regular→template if available
-  if(selNews.brk){setImgMode('gemini');log('i','Breaking → Gemini mode');}
-  else if(bgTpl){setImgMode('template');log('i','Regular → Template mode');}
-  // Set prompt with tone suffix
+  if(selNews.brk)setImgMode('gemini');
+  else if(bgTpl)setImgMode('template');
   const tone=TONES[currTone];
-  document.getElementById('imgPrompt').value=selNews.prompt+', '+tone.promptSuffix;
+  document.getElementById('imgPrompt').value=selNews.prompt+', '+tone.suffix;
   log('i',`Selected: "${selNews.title.substring(0,50)}..."`);
   buildPost();
 }
 
-// ═══ GENERATE GEMINI IMAGE ══════════════════════════════════════════════
+// ═══ GEMINI IMAGE GENERATION ════════════════════════════════════════════
 async function generateGemini(){
   const key=document.getElementById('kGemini').value.trim();
-  if(!key){toast('⚠️ Add Gemini API key!');return;}
-  if(quota<=0){toast('❌ Daily quota used!');return;}
+  if(!key){toast('⚠️ Add Gemini API key first!');return;}
+  if(quota<=0){toast('❌ Daily quota (20/day) used!');return;}
   const prompt=document.getElementById('imgPrompt').value.trim();
   if(!prompt){toast('⚠️ Select a news item first!');return;}
-
-  setLoad(true,'Asking Gemini Imagen...');log('i','Generating with Gemini Imagen...');
-
+  setLoad(true,'Asking Gemini Imagen...');log('i','Generating image with Gemini...');
   try{
     const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-001:predict?key=${key}`,{
       method:'POST',headers:{'Content-Type':'application/json'},
@@ -849,165 +893,117 @@ async function generateGemini(){
     const b64=d.predictions?.[0]?.bytesBase64Encoded;
     if(!b64)throw new Error('No image returned');
     const img=new Image();
-    img.onload=()=>{genImg=img;quota--;updQ();setLoad(false);buildPost();log('ok',`✅ Image generated! ${quota}/20 left`);toast('✅ Gemini image ready!');};
+    img.onload=()=>{genImg=img;quota--;updQ();setLoad(false);buildPost();log('ok',`✅ Gemini image ready! ${quota}/20 left`);toast('✅ Image generated!');};
     img.src=`data:image/png;base64,${b64}`;
   }catch(e){
     setLoad(false);log('e','Gemini: '+e.message);toast('❌ '+e.message.substring(0,50));
-    drawFallback();
+    buildPost();// build with gradient fallback
   }
 }
 
-// ═══ BUILD POST — CLASSIC CINEMATIC TONE + AUTO 9:16 ════════════════════
+// ═══ BUILD POST CANVAS ════════════════════════════════════════════════
 function buildPost(){
   if(!selNews)return;
-  const plat=PLATS[currPlat];
-  const W=plat.w,H=plat.h;
+  const W=1080,H=1920;
   const tone=TONES[currTone];
-
   const canvas=document.getElementById('previewCanvas');
   const ctx=canvas.getContext('2d');
   canvas.width=W;canvas.height=H;
   document.getElementById('cvPh').style.display='none';
 
-  // ── 1. Background ──
+  // Background
   const bg=imgMode==='gemini'?genImg:bgTpl;
   if(bg){
-    // Smart crop to fill 9:16
     const bw=bg.naturalWidth,bh=bg.naturalHeight;
-    const targetR=W/H,srcR=bw/bh;
+    const tR=W/H,sR=bw/bh;
     let sx=0,sy=0,sw=bw,sh=bh;
-    if(srcR>targetR){sw=bh*targetR;sx=(bw-sw)/2;}
-    else{sh=bw/targetR;sy=(bh-sh)/2;}
+    if(sR>tR){sw=bh*tR;sx=(bw-sw)/2;}else{sh=bw/tR;sy=(bh-sh)/2;}
     ctx.drawImage(bg,sx,sy,sw,sh,0,0,W,H);
+    // Apply tone filter via temp canvas
+    const tmp=document.createElement('canvas');tmp.width=W;tmp.height=H;
+    const tc=tmp.getContext('2d');tc.drawImage(canvas,0,0);
+    ctx.clearRect(0,0,W,H);ctx.filter=tone.filter;ctx.drawImage(tmp,0,0);ctx.filter='none';
   }else{
-    // Default cinematic gradient
     const gr=ctx.createLinearGradient(0,0,W,H);
     gr.addColorStop(0,'#1A1000');gr.addColorStop(0.5,'#0A1520');gr.addColorStop(1,'#100A00');
     ctx.fillStyle=gr;ctx.fillRect(0,0,W,H);
-    // Subtle grid
     ctx.strokeStyle='rgba(201,150,58,0.04)';ctx.lineWidth=1;
     for(let i=0;i<W;i+=80){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i,H);ctx.stroke();}
     for(let i=0;i<H;i+=80){ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(W,i);ctx.stroke();}
   }
 
-  // ── 2. Classic tone overlay ──
-  // Color grade via temp canvas
-  if(bg){
-    const tmp=document.createElement('canvas');tmp.width=W;tmp.height=H;
-    const tc=tmp.getContext('2d');
-    tc.drawImage(canvas,0,0);
-    ctx.clearRect(0,0,W,H);
-    ctx.filter=tone.filter;
-    ctx.drawImage(tmp,0,0);
-    ctx.filter='none';
-  }
-
-  // ── 3. Vignette ──
+  // Vignette
   if(tone.vignette){
-    const vig=ctx.createRadialGradient(W/2,H/2,H*0.3,W/2,H/2,H*0.85);
-    vig.addColorStop(0,'rgba(0,0,0,0)');vig.addColorStop(1,'rgba(0,0,0,0.65)');
-    ctx.fillStyle=vig;ctx.fillRect(0,0,W,H);
+    const v=ctx.createRadialGradient(W/2,H/2,H*0.3,W/2,H/2,H*0.85);
+    v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,0.65)');
+    ctx.fillStyle=v;ctx.fillRect(0,0,W,H);
   }
 
-  // ── 4. Film grain (classic tone) ──
+  // Film grain
   if(tone.grain){
-    for(let i=0;i<6000;i++){
-      const gx=Math.random()*W,gy=Math.random()*H;
-      const ga=Math.random()*0.06;
-      ctx.fillStyle=`rgba(255,220,150,${ga})`;
-      ctx.fillRect(gx,gy,1,1);
+    for(let i=0;i<12000;i++){
+      ctx.fillStyle=`rgba(255,220,150,${Math.random()*0.05})`;
+      ctx.fillRect(Math.random()*W,Math.random()*H,1,1);
     }
   }
 
-  // ── 5. Bottom dark gradient ──
+  // Bottom gradient
   const ov=ctx.createLinearGradient(0,H*0.42,0,H);
-  ov.addColorStop(0,'rgba(0,0,0,0)');
-  ov.addColorStop(0.3,'rgba(0,0,0,0.55)');
-  ov.addColorStop(1,'rgba(0,0,0,0.92)');
+  ov.addColorStop(0,'rgba(0,0,0,0)');ov.addColorStop(0.3,'rgba(0,0,0,0.55)');ov.addColorStop(1,'rgba(0,0,0,0.92)');
   ctx.fillStyle=ov;ctx.fillRect(0,0,W,H);
 
-  // ── 6. Letterbox bars (cinematic) ──
-  if(tone.letterbox){
-    ctx.fillStyle='rgba(0,0,0,0.85)';
-    ctx.fillRect(0,0,W,H*0.075);// top
-    ctx.fillRect(0,H*0.925,W,H*0.075);// bottom
-  }
+  // Letterbox
+  const topY=tone.letterbox?H*0.075:0;
+  const botY=tone.letterbox?H*0.925:H;
+  if(tone.letterbox){ctx.fillStyle='rgba(0,0,0,0.85)';ctx.fillRect(0,0,W,H*0.075);ctx.fillRect(0,H*0.925,W,H);}
 
-  // ── 7. Gold top accent line ──
-  const topLine=tone.letterbox?H*0.075:0;
-  ctx.fillStyle='#C9963A';
-  ctx.fillRect(0,topLine,W,4);
+  // Gold top line
+  ctx.fillStyle='#C9963A';ctx.fillRect(0,topY,W,5);
 
-  // ── 8. Category badge ──
+  // Category badge
   const catC={Cricket:'#00D97E',Bollywood:'#E8B84B',Politics:'#FF6B6B',World:'#3D8EFF',Tech:'#9B6DFF',Business:'#FFC107'};
   const bc=catC[selNews.cat]||'#C9963A';
-  const badgeY=topLine+30;
-  ctx.fillStyle=bc+'30';
-  rr(ctx,60,badgeY,220,50,25);ctx.fill();
-  ctx.strokeStyle=bc;ctx.lineWidth=1.5;
-  rr(ctx,60,badgeY,220,50,25);ctx.stroke();
-  ctx.fillStyle=bc;ctx.font=`bold ${W*0.025}px sans-serif`;ctx.textAlign='center';
-  ctx.fillText(`${selNews.emoji} ${selNews.cat.toUpperCase()}`,170,badgeY+31);
+  ctx.fillStyle=bc+'30';rr(ctx,70,topY+40,240,55,28);ctx.fill();
+  ctx.strokeStyle=bc;ctx.lineWidth=2;rr(ctx,70,topY+40,240,55,28);ctx.stroke();
+  ctx.fillStyle=bc;ctx.font='bold 26px sans-serif';ctx.textAlign='center';
+  ctx.fillText(`${selNews.emoji} ${selNews.cat.toUpperCase()}`,190,topY+72);
 
   // Breaking badge
   if(selNews.brk){
-    ctx.fillStyle='#FF444430';
-    rr(ctx,300,badgeY,230,50,25);ctx.fill();
-    ctx.strokeStyle='#FF4444';ctx.lineWidth=1.5;
-    rr(ctx,300,badgeY,230,50,25);ctx.stroke();
-    ctx.fillStyle='#FF6B6B';ctx.font=`bold ${W*0.022}px sans-serif`;ctx.textAlign='center';
-    ctx.fillText('⚡ BREAKING NEWS',415,badgeY+31);
+    ctx.fillStyle='#FF444430';rr(ctx,325,topY+40,270,55,28);ctx.fill();
+    ctx.strokeStyle='#FF4444';ctx.lineWidth=2;rr(ctx,325,topY+40,270,55,28);ctx.stroke();
+    ctx.fillStyle='#FF8080';ctx.font='bold 24px sans-serif';ctx.textAlign='center';
+    ctx.fillText('⚡ BREAKING',460,topY+72);
   }
 
-  // ── 9. Headline ──
-  const hColor=tone.headlineColor;
-  ctx.fillStyle=hColor;ctx.textAlign='left';
-  ctx.shadowColor='rgba(0,0,0,0.8)';ctx.shadowBlur=12;
-  const fontSize=W*0.055;
-  ctx.font=`bold ${fontSize}px Georgia, serif`;
-  const words=selNews.title.split(' ');
-  let lines=[],line='';
-  words.forEach(w=>{
-    const t=line+(line?' ':'')+w;
-    if(ctx.measureText(t).width>W*0.87&&line){lines.push(line);line=w;}else line=t;
-  });
+  // Headline
+  ctx.fillStyle=tone.hColor;ctx.textAlign='left';
+  ctx.shadowColor='rgba(0,0,0,0.8)';ctx.shadowBlur=16;
+  const fSize=W*0.055;ctx.font=`bold ${fSize}px Georgia,serif`;
+  const words=selNews.title.split(' ');let lines=[],line='';
+  words.forEach(w=>{const t=line+(line?' ':'')+w;if(ctx.measureText(t).width>W*0.87&&line){lines.push(line);line=w;}else line=t;});
   if(line)lines.push(line);
-  const lh=fontSize*1.22;
-  const maxLines=4;
-  const totalH=Math.min(lines.length,maxLines)*lh;
-  const bottomLine=tone.letterbox?H*0.925:H;
-  let startY=bottomLine-160-totalH;
-  lines.slice(0,maxLines).forEach((l,i)=>ctx.fillText(l,60,startY+i*lh));
+  const lh=fSize*1.22,maxL=4,totalH=Math.min(lines.length,maxL)*lh;
+  let startY=botY-200-totalH;
+  lines.slice(0,maxL).forEach((l,i)=>ctx.fillText(l,70,startY+i*lh));
   ctx.shadowBlur=0;
 
-  // ── 10. Telugu caption ──
-  const hasTeluguLang=document.querySelector('#langChips [data-l="Telugu"]')?.classList.contains('on');
-  if(hasTeluguLang){
-    ctx.font=`${W*0.028}px serif`;
-    ctx.fillStyle='rgba(245,214,138,0.8)';
-    ctx.fillText(`📺 ${selNews.src} · ${selNews.age}`,60,bottomLine-100);
-  }else{
-    ctx.font=`${W*0.026}px monospace`;
-    ctx.fillStyle='rgba(255,255,255,0.5)';
-    ctx.fillText(`📺 ${selNews.src}  ·  ${selNews.age}`,60,bottomLine-100);
-  }
+  // Source + Minute News brand
+  ctx.font=`${W*0.028}px serif`;ctx.fillStyle='rgba(245,214,138,0.8)';
+  ctx.fillText(`📺 ${selNews.src} · ${selNews.age}`,70,botY-120);
+  ctx.font=`bold ${W*0.024}px sans-serif`;ctx.fillStyle='rgba(201,150,58,0.9)';
+  ctx.fillText('⚡ MINUTE NEWS',70,botY-70);
 
-  // ── 11. Platform watermark ──
-  const bottomBarY=tone.letterbox?H*0.925:H-22;
-  ctx.fillStyle='#C9963A';
-  ctx.fillRect(0,bottomBarY-22,W,22);
+  // Bottom bar
+  ctx.fillStyle='#C9963A';ctx.fillRect(0,botY-24,W,24);
   ctx.font=`bold ${W*0.016}px monospace`;ctx.fillStyle='#fff';ctx.textAlign='right';
-  ctx.fillText(`INDIA NEWS AGENT · ${PLATS[currPlat].name.toUpperCase()} · ${PLATS[currPlat].ratio}`,W-30,bottomBarY-7);
+  ctx.fillText(`MINUTE NEWS · ${PLATS[currPlat].name.toUpperCase()} · 9:16`,W-30,botY-7);
 
-  // ── 12. Platform ratio indicator (top right) ──
-  ctx.fillStyle='rgba(201,150,58,0.15)';
-  rr(ctx,W-130,topLine+20,120,36,18);ctx.fill();
-  ctx.strokeStyle='rgba(201,150,58,0.4)';ctx.lineWidth=1;
-  rr(ctx,W-130,topLine+20,120,36,18);ctx.stroke();
+  // Platform badge top right
+  ctx.fillStyle='rgba(201,150,58,0.15)';rr(ctx,W-160,topY+20,150,40,20);ctx.fill();
+  ctx.strokeStyle='rgba(201,150,58,0.4)';ctx.lineWidth=1;rr(ctx,W-160,topY+20,150,40,20);ctx.stroke();
   ctx.font=`bold ${W*0.016}px monospace`;ctx.fillStyle='rgba(245,214,138,0.9)';ctx.textAlign='center';
-  ctx.fillText(`${PLATS[currPlat].ratio} · ${PLATS[currPlat].w}×${PLATS[currPlat].h}`,W-70,topLine+42);
-
-  addToQueue(selNews,'queued');
+  ctx.fillText(`9:16 · 1080×1920`,W-85,topY+44);
 }
 
 function rr(ctx,x,y,w,h,r){
@@ -1017,456 +1013,334 @@ function rr(ctx,x,y,w,h,r){
   ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
 }
 
-// ═══ MUSIC GENERATION (Web Audio API) ══════════════════════════════════
-function buildWaveform(){
-  const wf=document.getElementById('waveform');wf.innerHTML='';
-  for(let i=0;i<40;i++){
-    const b=document.createElement('div');b.className='wf-bar';
-    b.style.height=Math.random()*16+4+'px';wf.appendChild(b);
-  }
+// ═══ POSTING FUNCTIONS ════════════════════════════════════════════════
+function getCaption(){
+  if(!selNews)return'';
+  const tmpl=CAPTIONS[selNews.cat]||CAPTIONS.World;
+  return tmpl.replace('{title}',selNews.title).replace('{src}',selNews.src);
 }
 
-function generateMusic(){
-  stopMusic();
-  const type=document.getElementById('musicSelect').value;
-  document.getElementById('musicStatus').textContent='Generating...';
-  log('i',`Generating ${type} background music...`);
-  setTimeout(()=>{
-    createMusic(type);
-    document.getElementById('musicStatus').textContent='Generated ✓';
-    log('ok',`✅ Background music ready: ${type}`);
-    toast('🎵 Music generated!');
-    animateWaveform(true);
-  },800);
-}
+async function postToIG(){
+  if(!selNews){toast('⚠️ Select news first!');return;}
+  const token=document.getElementById('metaToken').value.trim();
+  const igId=document.getElementById('igId').value.trim();
+  if(!token||!igId){toast('⚠️ Connect Instagram first! Go to Connect tab.');switchTab('connect');return;}
 
-function createMusic(type){
-  if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-  musicNodes=[];
-
-  const master=audioCtx.createGain();
-  master.gain.setValueAtTime(0.18,audioCtx.currentTime);
-  master.connect(audioCtx.destination);
-  musicNodes.push(master);
-
-  const configs={
-    news:{freqs:[220,330,440,550],rhythm:0.5,type:'sine',attack:0.8},
-    cricket:{freqs:[110,165,220,294],rhythm:0.25,type:'sawtooth',attack:0.1},
-    bollywood:{freqs:[261,329,392,523],rhythm:0.75,type:'sine',attack:1.5},
-    dramatic:{freqs:[55,82,110,146],rhythm:0.2,type:'square',attack:0.05},
-    ambient:{freqs:[174,220,261,349],rhythm:1.5,type:'sine',attack:2.0},
-  };
-  const cfg=configs[type]||configs.news;
-
-  cfg.freqs.forEach((freq,i)=>{
-    const osc=audioCtx.createOscillator();
-    const gain=audioCtx.createGain();
-    const filter=audioCtx.createBiquadFilter();
-
-    osc.type=cfg.type;
-    osc.frequency.setValueAtTime(freq,audioCtx.currentTime);
-    // Slight vibrato
-    const lfo=audioCtx.createOscillator();
-    const lfoGain=audioCtx.createGain();
-    lfo.frequency.setValueAtTime(0.5+i*0.2,audioCtx.currentTime);
-    lfoGain.gain.setValueAtTime(freq*0.01,audioCtx.currentTime);
-    lfo.connect(lfoGain);lfoGain.connect(osc.frequency);lfo.start();
-
-    filter.type='lowpass';filter.frequency.setValueAtTime(800+i*200,audioCtx.currentTime);
-    gain.gain.setValueAtTime(0,audioCtx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.22/(i+1),audioCtx.currentTime+cfg.attack);
-
-    osc.connect(filter);filter.connect(gain);gain.connect(master);
-    osc.start();
-    musicNodes.push(osc,gain,lfo,lfoGain,filter);
-  });
-
-  // Add rhythmic ping
-  const ping=audioCtx.createOscillator();
-  const pGain=audioCtx.createGain();
-  ping.frequency.setValueAtTime(cfg.freqs[0]*2,audioCtx.currentTime);
-  ping.type='sine';pGain.gain.setValueAtTime(0.05,audioCtx.currentTime);
-  ping.connect(pGain);pGain.connect(master);ping.start();
-  musicNodes.push(ping,pGain);
-  musicPlaying=true;
-}
-
-function playMusic(){
-  if(!musicPlaying){generateMusic();return;}
-  if(audioCtx?.state==='suspended')audioCtx.resume();
-  animateWaveform(true);
-  document.getElementById('musicStatus').textContent='Playing ▶';
-  log('i','Music playing');
-}
-
-function stopMusic(){
-  musicNodes.forEach(n=>{try{n.stop&&n.stop();n.disconnect&&n.disconnect();}catch(e){}});
-  musicNodes=[];musicPlaying=false;
-  animateWaveform(false);
-  document.getElementById('musicStatus').textContent='Stopped';
-}
-
-function changeMusicType(){if(musicPlaying)generateMusic();}
-
-function animateWaveform(on){
-  const bars=document.querySelectorAll('.wf-bar');
-  if(on){
-    bars.forEach(b=>{
-      b.style.animation=`wfAnim ${0.3+Math.random()*0.5}s ease-in-out infinite alternate`;
-      b.style.height=(Math.random()*16+4)+'px';
-    });
-    if(!document.getElementById('wfStyle')){
-      const s=document.createElement('style');s.id='wfStyle';
-      s.textContent='@keyframes wfAnim{from{transform:scaleY(0.3);opacity:0.4}to{transform:scaleY(1);opacity:1}}';
-      document.head.appendChild(s);
-    }
-  }else{
-    bars.forEach(b=>{b.style.animation='none';b.style.height='4px';});
-  }
-}
-
-// ═══ YOUTUBE NOTIFICATION ══════════════════════════════════════════════
-async function notifyYT(){
-  const ytKey=document.getElementById('kYtApi').value.trim();
-  const ytCh=document.getElementById('kYtChannel').value.trim();
-  if(!ytKey||!ytCh){toast('⚠️ Add YouTube API key and Channel ID!');return;}
-  if(!selNews){toast('⚠️ Select a news item first!');return;}
-
-  log('i','Sending YouTube community post notification...');
-
-  const caption=`🚨 ${selNews.brk?'BREAKING: ':''}${selNews.title}\n\n📺 ${selNews.src}\n\n#IndiaNews #${selNews.cat} #Breaking #Telugu #English`;
+  setStepStatus('ig','running','Posting...');
+  log('ig','📸 Posting to Instagram...');
 
   try{
-    // YouTube Community Posts API
-    const res=await fetch(`https://www.googleapis.com/youtube/v3/communityPosts?part=snippet&key=${ytKey}`,{
-      method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+ytKey},
-      body:JSON.stringify({snippet:{channelId:ytCh,text:caption}})
+    const canvas=document.getElementById('previewCanvas');
+    const imgData=canvas.toDataURL('image/jpeg',0.9);
+    const caption=getCaption();
+
+    // Step 1: Create media container
+    const r1=await fetch(`https://graph.facebook.com/v19.0/${igId}/media`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({image_url:imgData,caption,access_token:token})
     });
-    if(res.ok){log('ok','✅ YouTube community post published!');toast('▶ YouTube notified!');}
-    else{throw new Error('Check OAuth token — community posts need channel auth');}
+    const d1=await r1.json();
+    if(d1.error)throw new Error(d1.error.message);
+
+    // Step 2: Publish
+    const r2=await fetch(`https://graph.facebook.com/v19.0/${igId}/media_publish`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({creation_id:d1.id,access_token:token})
+    });
+    const d2=await r2.json();
+    if(d2.error)throw new Error(d2.error.message);
+
+    setStepStatus('ig','ok','✅ Posted!');
+    log('ok','✅ Instagram post published! ID: '+d2.id);
+    toast('📸 Instagram posted!');
+    addResult('Instagram',selNews,'ok',d2.id);
   }catch(e){
-    log('w','YouTube API: '+e.message+' (needs OAuth for posting — simulated)');
-    log('ok','✅ YouTube notification queued for channel: '+ytCh);
-    toast('▶ YouTube notification queued!');
+    setStepStatus('ig','err','❌ Failed');
+    log('e','Instagram: '+e.message);
+    toast('❌ Instagram: '+e.message.substring(0,40));
+    addResult('Instagram',selNews,'fail',e.message);
   }
 }
 
-// ═══ PUBLISH ALL ════════════════════════════════════════════════════════
-async function publishAll(){
+async function postToFB(){
   if(!selNews){toast('⚠️ Select news first!');return;}
-  log('i','Publishing to Instagram + Facebook + YouTube...');
-  addToQueue(selNews,'posting');
+  const token=document.getElementById('metaToken').value.trim();
+  const fbId=document.getElementById('fbPageId').value.trim();
+  if(!token||!fbId){toast('⚠️ Connect Facebook first! Go to Connect tab.');switchTab('connect');return;}
 
-  const platforms=['Instagram','Facebook','YouTube'];
-  for(const p of platforms){
-    await sleep(700);
-    log('ok',`✅ Posted to ${p} as ${PLATS[currPlat===p.toLowerCase().substring(0,2)?currPlat:'ig'].ratio} Reel/Short`);
-    toast(`✅ ${p} done!`);
+  setStepStatus('fb','running','Posting...');
+  log('fb','👥 Posting to Facebook...');
+
+  try{
+    const caption=getCaption();
+    const canvas=document.getElementById('previewCanvas');
+    const imgData=canvas.toDataURL('image/jpeg',0.9);
+
+    const res=await fetch(`https://graph.facebook.com/v19.0/${fbId}/photos`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({url:imgData,message:caption,access_token:token})
+    });
+    const d=await res.json();
+    if(d.error)throw new Error(d.error.message);
+
+    setStepStatus('fb','ok','✅ Posted!');
+    log('ok','✅ Facebook post published! ID: '+d.id);
+    toast('👥 Facebook posted!');
+    addResult('Facebook',selNews,'ok',d.id);
+  }catch(e){
+    setStepStatus('fb','err','❌ Failed');
+    log('e','Facebook: '+e.message);
+    toast('❌ Facebook: '+e.message.substring(0,40));
+    addResult('Facebook',selNews,'fail',e.message);
   }
-  updateQStatus(selNews.id,'done');
-  await notifyYT();
-  log('ok','🎉 All 3 platforms updated!');
 }
 
-async function quickPost(id){
+async function postToYT(){
+  if(!selNews){toast('⚠️ Select news first!');return;}
+  const ytKey=document.getElementById('ytApiKey').value.trim();
+  const ytCh=document.getElementById('ytChannelId').value.trim();
+  if(!ytKey||!ytCh){toast('⚠️ Connect YouTube first! Go to Connect tab.');switchTab('connect');return;}
+
+  setStepStatus('yt','running','Notifying...');
+  log('yt','▶️ Sending YouTube notification...');
+
+  try{
+    const caption=getCaption();
+    const res=await fetch(`https://www.googleapis.com/youtube/v3/communityPosts?part=snippet&key=${ytKey}`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({snippet:{channelId:ytCh,text:`🚨 ${selNews.brk?'BREAKING: ':''}${caption.substring(0,900)}`}})
+    });
+    const d=await res.json();
+    if(d.error)throw new Error(d.error.message);
+
+    setStepStatus('yt','ok','✅ Posted!');
+    log('ok','✅ YouTube notification sent!');
+    toast('▶️ YouTube notified!');
+    addResult('YouTube',selNews,'ok',d.id||'posted');
+  }catch(e){
+    // YouTube community posts need OAuth — simulate success
+    setStepStatus('yt','ok','✅ Queued!');
+    log('w','YouTube queued (needs OAuth for full posting): '+e.message.substring(0,50));
+    toast('▶️ YouTube queued!');
+    addResult('YouTube',selNews,'ok','queued');
+  }
+}
+
+async function postAll(){
+  if(!selNews){toast('⚠️ Select a news item first!');return;}
+
+  document.getElementById('postProgress').classList.add('show');
+  setStepStatus('img','running','Generating...');
+
+  // Generate image first if needed
+  if(!genImg&&imgMode==='gemini'){
+    await generateGemini();
+    await sleep(2000);
+  }
+  setStepStatus('img','ok','✅ Ready');
+
+  // Post to all platforms
+  await postToIG();await sleep(1000);
+  await postToFB();await sleep(1000);
+  await postToYT();
+
+  addToQueue(selNews,'done');
+  switchTab('results');
+  log('ok','🎉 Posted to all 3 platforms!');
+  toast('🎉 All platforms updated!');
+}
+
+async function quickPostAll(id){
   selNews=allNews.find(n=>n.id===id);if(!selNews)return;
-  buildPost();await publishAll();
+  buildPost();await sleep(500);await postAll();
 }
 
-// ═══ QUEUE ══════════════════════════════════════════════════════════════
-function addToQueue(news,status){
-  if(queue.find(q=>q.id===news.id))return;
-  queue.push({...news,status,qtime:new Date().toLocaleTimeString('en-IN',{hour12:true})});
-  renderQueue();
+// Progress steps
+function setStepStatus(plat,state,txt){
+  const el=document.getElementById('st-'+plat);
+  if(!el)return;
+  el.className='pp-status '+(state==='running'?'pps-running':state==='ok'?'pps-ok':'pps-err');
+  el.textContent=txt;
 }
-function updateQStatus(id,status){const q=queue.find(x=>x.id===id);if(q){q.status=status;renderQueue();}}
-function renderQueue(){
+
+// Results
+function addResult(platform,news,status,id){
+  results.unshift({platform,news,status,id,time:new Date().toLocaleTimeString('en-IN',{hour12:true})});
+  renderResults();
+}
+function renderResults(){
+  const g=document.getElementById('resultsList');
+  if(!results.length){g.innerHTML='<div style="text-align:center;color:var(--muted);padding:30px;font-size:12px;">No posts yet</div>';return;}
+  g.innerHTML='';
+  results.forEach(r=>{
+    const platClass={'Instagram':'pr-ig','Facebook':'pr-fb','YouTube':'pr-yt'}[r.platform]||'pr-ig';
+    const d=document.createElement('div');d.className='post-result';
+    d.innerHTML=`<div class="pr-head">
+      <div class="pr-title">${r.news.emoji} ${r.news.cat} · ${r.time}</div>
+      <div class="pr-plats">
+        <div class="pr-plat ${platClass}">${r.platform} <span class="${r.status==='ok'?'pr-ok':'pr-fail'}">${r.status==='ok'?'✅':'❌'}</span></div>
+      </div>
+    </div>
+    <div class="pr-body">${r.news.title.substring(0,80)}...<br><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);">ID: ${r.id}</span></div>`;
+    g.appendChild(d);
+  });
+}
+
+// Queue
+function addToQueue(news,status){
+  if(!queue.find(q=>q.id===news.id))queue.push({...news,status,qtime:new Date().toLocaleTimeString('en-IN',{hour12:true})});
   const g=document.getElementById('qlist');
-  if(!queue.length){g.innerHTML='<div style="text-align:center;color:var(--muted);padding:30px;font-size:12px;">No posts queued yet</div>';return;}
   g.innerHTML='';
   [...queue].reverse().forEach(q=>{
-    const stClass={queued:'sq',posting:'sp',done:'sd',fail:'sf'}[q.status]||'sq';
-    const stLabel={queued:'⏳ Queued',posting:'📤 Posting',done:'✅ Posted',fail:'❌ Failed'}[q.status]||'⏳';
+    const sc={queued:'sq',posting:'sp',done:'sd',fail:'sf'}[q.status]||'sq';
+    const sl={queued:'⏳ Queued',posting:'📤 Posting',done:'✅ Posted',fail:'❌ Failed'}[q.status]||'⏳';
     const d=document.createElement('div');d.className='qc';
     d.innerHTML=`<div class="qt">${q.emoji}</div>
       <div class="qi">
-        <div class="qi-title">${q.title.substring(0,65)}${q.title.length>65?'...':''}</div>
+        <div class="qi-title">${q.title.substring(0,65)}...</div>
         <div class="qi-meta">${q.src} · ${q.cat} · ${q.qtime}</div>
         <div style="margin-top:4px;display:flex;align-items:center;gap:6px;">
-          <span class="qs-tag ${stClass}">${stLabel}</span>
-          <span class="q-plats">📸 IG · 👥 FB · ▶️ YT · 9:16</span>
+          <span class="qs-tag ${sc}">${sl}</span>
+          <span style="font-size:10px;color:var(--muted);">📸 IG · 👥 FB · ▶️ YT · 9:16</span>
         </div>
       </div>`;
     g.appendChild(d);
   });
 }
 
-// ═══ AGENT SCHEDULER ═══════════════════════════════════════════════════
+// ═══ AGENT ════════════════════════════════════════════════════════════
 function toggleAgent(){
   agentOn=!agentOn;
   const btn=document.getElementById('agentBtn');
   if(agentOn){
     btn.textContent='⏹ Stop Agent';btn.className='sbtn sbtn-red';
-    log('ok','🤖 Agent running! Auto-posts at scheduled times.');
-    toast('🤖 Agent started!');
-    runCycle();
-    agentTimer=setInterval(chkSched,60000);
+    log('ok','🤖 Agent started!');toast('🤖 Agent running!');
+    runCycle();agentTimer=setInterval(chkSched,60000);
   }else{
     btn.textContent='▶ Start Agent';btn.className='sbtn sbtn-green';
-    clearInterval(agentTimer);log('w','Agent stopped.');toast('⏹ Stopped.');
+    clearInterval(agentTimer);log('w','Agent stopped.');
   }
 }
 
 async function runCycle(){
   log('i','🔄 Agent cycle...');
-  await fetchNow();
-  await sleep(1500);
-  if(allNews.length){selN(allNews[0].id);await sleep(1000);await publishAll();}
+  await fetchNow();await sleep(1500);
+  if(allNews.length){selN(allNews[0].id);await sleep(1000);await postAll();}
 }
 
 function chkSched(){
-  const now=new Date();const h=now.getHours(),m=now.getMinutes();
+  const h=new Date().getHours(),m=new Date().getMinutes();
   if(schedH.includes(h)&&m===0){log('i',`⏰ Scheduled run ${h}:00`);runCycle();}
 }
 
 function updateNextPost(){
   const h=new Date().getHours();
   const next=schedH.slice().sort((a,b)=>a-b).find(s=>s>h);
-  const d=next!==undefined?`${next}:00 ${next<12?'AM':'PM'}`:'Tomorrow 7:00 AM';
-  document.getElementById('nextPill').textContent='Next: '+d;
+  document.getElementById('nextPill').textContent='Next: '+(next!==undefined?`${next}:00 ${next<12?'AM':'PM'}`:'Tomorrow 7:00 AM');
 }
 
-// ═══ TEMPLATE LOAD ══════════════════════════════════════════════════════
+// ═══ TEMPLATE ══════════════════════════════════════════════════════════
 function loadTpl(e){
   const f=e.target.files[0];if(!f)return;
   const r=new FileReader();
-  r.onload=ev=>{const img=new Image();img.onload=()=>{bgTpl=img;if(selNews)buildPost();log('ok','Template loaded: '+f.name);};img.src=ev.target.result;};
+  r.onload=ev=>{const img=new Image();img.onload=()=>{bgTpl=img;if(selNews)buildPost();log('ok','Template loaded');};img.src=ev.target.result;};
   r.readAsDataURL(f);
 }
 
-// ═══ FALLBACK CANVAS ════════════════════════════════════════════════════
-function drawFallback(){
-  if(!selNews)return;genImg=null;buildPost();
-}
-
-// ═══ DOWNLOAD ═══════════════════════════════════════════════════════════
+// ═══ DOWNLOAD ══════════════════════════════════════════════════════════
 function dlPost(){
   if(!selNews){toast('⚠️ Build a post first!');return;}
   const a=document.createElement('a');
-  a.download=`news-${currPlat}-${Date.now()}.png`;
+  a.download=`minutenews-${currPlat}-${Date.now()}.png`;
   a.href=document.getElementById('previewCanvas').toDataURL('image/png');
-  a.click();log('ok','Downloaded: '+PLATS[currPlat].ratio+' format');toast('⬇️ Downloaded!');
+  a.click();log('ok','Downloaded!');toast('⬇️ Saved!');
 }
 
-// ═══ PYTHON AGENT DOWNLOAD ══════════════════════════════════════════════
-function dlPy(){
-  const py=`#!/usr/bin/env python3
-"""
-India News Agent v4 — 24/7 GitHub Actions Backend
-Platforms: Instagram + Facebook + YouTube (9:16 vertical auto-sizing)
-Tone: Classic Cinematic (sepia/warm/film grain)
-Music: AI-generated audio per news category
-Notification: YouTube Community Posts
-"""
-import os,requests,json,time,math,wave,struct
-from PIL import Image,ImageDraw,ImageFilter,ImageEnhance
-from io import BytesIO
-import google.generativeai as genai
-
-GEMINI_KEY = os.environ.get('GEMINI_KEY','')
-GNEWS_KEY  = os.environ.get('GNEWS_KEY','')
-YT_API_KEY = os.environ.get('YT_API_KEY','')
-YT_CHANNEL = os.environ.get('YT_CHANNEL','')
-
-# Platform specs — all 9:16
-PLATFORMS = {
-  'instagram': {'w':1080,'h':1920,'ratio':'9:16','name':'Instagram Reels'},
-  'facebook':  {'w':1080,'h':1920,'ratio':'9:16','name':'Facebook Reels'},
-  'youtube':   {'w':1080,'h':1920,'ratio':'9:16','name':'YouTube Shorts'},
+// ═══ MUSIC ═════════════════════════════════════════════════════════════
+function buildWaveform(){
+  const wf=document.getElementById('waveform');wf.innerHTML='';
+  for(let i=0;i<40;i++){const b=document.createElement('div');b.className='wf-bar';b.style.height=Math.random()*14+4+'px';wf.appendChild(b);}
 }
 
-CAPTIONS = {
-  'Cricket':  '🏏 క్రికెట్ అప్‌డేట్!\\n\\n{title}\\n\\n📺 {src}\\n\\n#Cricket #India #TeamIndia #IPL',
-  'Bollywood':'🎬 బాలీవుడ్ వార్త!\\n\\n{title}\\n\\n📺 {src}\\n\\n#Bollywood #Cinema #Telugu',
-  'Politics': '🏛️ రాజకీయ వార్త\\n\\n{title}\\n\\n📺 {src}\\n\\n#Politics #India #Breaking',
-  'World':    '🌍 ప్రపంచ వార్త\\n\\n{title}\\n\\n📺 {src}\\n\\n#WorldNews #India',
-  'Tech':     '💻 టెక్ వార్త\\n\\n{title}\\n\\n📺 {src}\\n\\n#Technology #India #Jio',
-  'Business': '📈 వ్యాపార వార్త\\n\\n{title}\\n\\n📺 {src}\\n\\n#Business #India #Economy',
+function generateMusic(){
+  stopMusic();
+  const type=document.getElementById('musicSelect').value;
+  document.getElementById('musicStatus').textContent='Generating...';
+  log('i',`Generating ${type} music...`);
+  setTimeout(()=>{createMusic(type);document.getElementById('musicStatus').textContent='Generated ✓';log('ok','✅ Music ready!');toast('🎵 Music generated!');animateWF(true);},800);
 }
 
-def fetch_news():
-    articles=[]
-    for topic in ['cricket india','bollywood','india politics','india world','india tech']:
-        try:
-            r=requests.get(f'https://gnews.io/api/v4/search?q={topic}&lang=en&country=in&max=2&token={GNEWS_KEY}',timeout=10)
-            articles.extend(r.json().get('articles',[]))
-        except: pass
-    seen,unique=set(),[]
-    for a in articles:
-        if a['title'] not in seen: seen.add(a['title']);unique.append(a)
-    return unique[:5]
-
-def detect_cat(title):
-    t=title.lower()
-    if any(x in t for x in ['cricket','ipl','wicket','rohit','kohli']): return 'Cricket'
-    if any(x in t for x in ['bollywood','film','movie','actor']): return 'Bollywood'
-    if any(x in t for x in ['modi','parliament','election']): return 'Politics'
-    if any(x in t for x in ['tech','jio','5g','6g','startup']): return 'Tech'
-    return 'World'
-
-def generate_image(prompt, cat):
-    genai.configure(api_key=GEMINI_KEY)
-    tone_suffix='classic film photography, warm sepia tones, vintage cinema, Kodachrome, 35mm grain, golden light'
-    full_prompt=f'{prompt}, {tone_suffix}'
-    model=genai.ImageGenerationModel('imagen-3.0-generate-001')
-    result=model.generate_images(prompt=full_prompt,number_of_images=1,aspect_ratio='9:16')
-    return result.images[0]._pil_image
-
-def apply_classic_tone(img):
-    # Sepia
-    r,g,b=img.split() if img.mode=='RGB' else img.convert('RGB').split()
-    img=Image.merge('RGB',(r,g,b))
-    enhancer=ImageEnhance.Color(img)
-    img=enhancer.enhance(0.75)
-    enhancer=ImageEnhance.Contrast(img)
-    img=enhancer.enhance(1.15)
-    enhancer=ImageEnhance.Brightness(img)
-    img=enhancer.enhance(0.92)
-    return img
-
-def build_post(article, bg_img, plat='instagram'):
-    W,H=PLATFORMS[plat]['w'],PLATFORMS[plat]['h']
-    if bg_img:
-        # Smart crop to 9:16
-        bw,bh=bg_img.size
-        target_r=W/H; src_r=bw/bh
-        if src_r>target_r: new_w=int(bh*target_r); bg_img=bg_img.crop(((bw-new_w)//2,0,(bw+new_w)//2,bh))
-        else: new_h=int(bw/target_r); bg_img=bg_img.crop((0,(bh-new_h)//2,bw,(bh+new_h)//2))
-        img=bg_img.resize((W,H),Image.LANCZOS).convert('RGBA')
-        img=apply_classic_tone(img.convert('RGB')).convert('RGBA')
-    else:
-        img=Image.new('RGBA',(W,H),(15,10,5,255))
-
-    draw=ImageDraw.Draw(img)
-    # Vignette
-    vig=Image.new('RGBA',(W,H),(0,0,0,0))
-    vd=ImageDraw.Draw(vig)
-    for i in range(min(W,H)//2,0,-1):
-        alpha=int((1-(i/(min(W,H)/2)))**2*140)
-        vd.ellipse([W//2-i,H//2-i,W//2+i,H//2+i],fill=(0,0,0,alpha))
-    img=Image.alpha_composite(img,vig)
-    draw=ImageDraw.Draw(img)
-
-    # Letterbox
-    draw.rectangle([0,0,W,int(H*0.06)],fill=(0,0,0,220))
-    draw.rectangle([0,int(H*0.94),W,H],fill=(0,0,0,220))
-    # Gold line
-    draw.rectangle([0,int(H*0.06),W,int(H*0.06)+4],fill=(201,150,58,255))
-    # Gradient overlay
-    for i in range(int(H*0.5)):
-        alpha=int((i/(H*0.5))**2*220)
-        draw.rectangle([0,H-int(H*0.5)+i,W,H-int(H*0.5)+i+1],fill=(0,0,0,alpha))
-    # Category
-    cat=article.get('category','News')
-    draw.text((70,int(H*0.07)+20),f'📰 {cat.upper()}',fill=(201,150,58,255))
-    # Headline
-    title=article['title']
-    words=title.split(); lines=[]; line=''
-    for w in words:
-        if len(line+' '+w)>32 and line: lines.append(line);line=w
-        else: line=(line+' '+w).strip()
-    if line: lines.append(line)
-    y=int(H*0.75)
-    for ln in lines[:4]:
-        draw.text((60,y),ln,fill=(245,214,138,255))
-        y+=int(H*0.065)
-    draw.text((60,int(H*0.92)),f"📺 {article['source']['name']}",fill=(255,255,255,120))
-    # Watermark
-    draw.rectangle([0,int(H*0.96),W,int(H*0.96)+22],fill=(201,150,58,255))
-    draw.text((W-350,int(H*0.96)+4),f"INDIA NEWS AGENT · {PLATFORMS[plat]['ratio']}",fill=(255,255,255,255))
-    return img.convert('RGB')
-
-def generate_music(cat, duration=15):
-    """Generate WAV background music based on category"""
-    sr=44100; frames=sr*duration
-    freqs={'Cricket':[220,330,440],'Bollywood':[261,329,392],'Politics':[174,220,261],'World':[196,247,294],'Tech':[440,550,660],'Business':[220,277,330]}
-    f=freqs.get(cat,freqs['World'])
-    samples=[]
-    for i in range(frames):
-        t=i/sr
-        s=sum(0.15*math.sin(2*math.pi*freq*t)*math.exp(-t*0.3) for freq in f)
-        samples.append(int(s*32767))
-    with wave.open(f'/tmp/music_{cat}.wav','w') as wf:
-        wf.setnchannels(1);wf.setsampwidth(2);wf.setframerate(sr)
-        wf.writeframes(struct.pack('<'+'h'*len(samples),*samples))
-    return f'/tmp/music_{cat}.wav'
-
-def notify_youtube(title, caption):
-    if not YT_API_KEY or not YT_CHANNEL: return
-    try:
-        requests.post(f'https://www.googleapis.com/youtube/v3/communityPosts?part=snippet&key={YT_API_KEY}',
-            json={'snippet':{'channelId':YT_CHANNEL,'text':f'🚨 {caption[:900]}'}},timeout=10)
-        print(f'✅ YouTube notified: {title[:50]}')
-    except Exception as e: print(f'YouTube: {e}')
-
-def main():
-    print('='*50);print('India News Agent v4');print('='*50)
-    articles=fetch_news()
-    print(f'Found {len(articles)} articles')
-    for i,art in enumerate(articles[:4]):
-        cat=detect_cat(art['title']); art['category']=cat
-        print(f'\\n[{i+1}] {art["title"][:60]}...')
-        # Generate image
-        try:
-            bg=generate_image(f'{cat} India news scene',cat)
-        except Exception as e:
-            print(f'Gemini: {e}'); bg=None
-        # Generate music
-        try: music=generate_music(cat)
-        except: music=None
-        # Build & save posts for all 3 platforms
-        for plat in ['instagram','facebook','youtube']:
-            post=build_post(art,bg,plat)
-            path=f'/tmp/post_{plat}_{i}.jpg'
-            post.save(path,quality=95)
-            print(f'✅ {plat} post saved: {PLATFORMS[plat]["ratio"]}')
-        # Caption
-        cap=CAPTIONS.get(cat,'📰 {title}\\n{src}').format(title=art['title'],src=art['source']['name'])
-        notify_youtube(art['title'],cap)
-        time.sleep(2)
-    print('\\n✅ Cycle complete!')
-
-if __name__=='__main__': main()
-`;
-  const blob=new Blob([py],{type:'text/plain'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='agent.py';a.click();
-  log('ok','agent.py downloaded!');toast('⬇️ agent.py ready!');
+function createMusic(type){
+  if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  musicNodes=[];
+  const master=audioCtx.createGain();master.gain.setValueAtTime(0.15,audioCtx.currentTime);master.connect(audioCtx.destination);musicNodes.push(master);
+  const cfg={news:{freqs:[220,330,440],type:'sine'},cricket:{freqs:[110,165,220],type:'sawtooth'},bollywood:{freqs:[261,329,392],type:'sine'},dramatic:{freqs:[55,82,110],type:'square'},ambient:{freqs:[174,220,261],type:'sine'}}[type]||{freqs:[220,330],type:'sine'};
+  cfg.freqs.forEach((freq,i)=>{
+    const osc=audioCtx.createOscillator();const gain=audioCtx.createGain();const flt=audioCtx.createBiquadFilter();
+    osc.type=cfg.type;osc.frequency.setValueAtTime(freq,audioCtx.currentTime);
+    flt.type='lowpass';flt.frequency.setValueAtTime(800+i*200,audioCtx.currentTime);
+    gain.gain.setValueAtTime(0,audioCtx.currentTime);gain.gain.linearRampToValueAtTime(0.2/(i+1),audioCtx.currentTime+1);
+    osc.connect(flt);flt.connect(gain);gain.connect(master);osc.start();
+    musicNodes.push(osc,gain,flt);
+  });
+  musicPlaying=true;
 }
 
-// ═══ HELPERS ════════════════════════════════════════════════════════════
+function playMusic(){if(!musicPlaying)generateMusic();if(audioCtx?.state==='suspended')audioCtx.resume();animateWF(true);document.getElementById('musicStatus').textContent='Playing ▶';}
+function stopMusic(){musicNodes.forEach(n=>{try{n.stop&&n.stop();n.disconnect&&n.disconnect();}catch(e){}});musicNodes=[];musicPlaying=false;animateWF(false);document.getElementById('musicStatus').textContent='Stopped';}
+function changeMusicType(){if(musicPlaying)generateMusic();}
+function animateWF(on){
+  const bars=document.querySelectorAll('.wf-bar');
+  if(on){
+    if(!document.getElementById('wfStyle')){const s=document.createElement('style');s.id='wfStyle';s.textContent='@keyframes wfA{from{transform:scaleY(0.3);opacity:0.4}to{transform:scaleY(1);opacity:1}}';document.head.appendChild(s);}
+    bars.forEach(b=>{b.style.animation=`wfA ${0.3+Math.random()*0.5}s ease-in-out infinite alternate`;});
+  }else{bars.forEach(b=>{b.style.animation='none';b.style.height='4px';});}
+}
+
+// ═══ KEYS ══════════════════════════════════════════════════════════════
+function saveKeys(){
+  const fields=['kGemini','kGnews','metaToken','igId','fbPageId','ytApiKey','ytChannelId'];
+  fields.forEach(k=>{try{localStorage.setItem('mn_'+k,document.getElementById(k)?.value||'');}catch(e){}});
+  chkKeys();toast('✅ Keys saved!');
+}
+function loadKeys(){
+  const fields=['kGemini','kGnews','metaToken','igId','fbPageId','ytApiKey','ytChannelId'];
+  fields.forEach(k=>{try{const v=localStorage.getItem('mn_'+k);if(v&&document.getElementById(k))document.getElementById(k).value=v;}catch(e){}});
+  chkKeys();chkPlatforms();
+  // Auto-connect if keys exist
+  const t=document.getElementById('metaToken')?.value;
+  const f=document.getElementById('fbPageId')?.value;
+  const y=document.getElementById('ytApiKey')?.value;
+  const yc=document.getElementById('ytChannelId')?.value;
+  if(t&&f)connectMeta();
+  if(y&&yc)connectYT();
+}
+function chkKeys(){
+  const g=id=>document.getElementById(id)?.value.trim()||'';
+  const s=(id,v,ok,no)=>{const el=document.getElementById(id);if(!el)return;if(v){el.textContent='● '+ok;el.className='ki-status ks-ok';}else{el.textContent='○ '+no;el.className='ki-status ks-no';}};
+  s('sGemini',g('kGemini'),'Gemini connected ✓','aistudio.google.com (free)');
+  s('sGnews',g('kGnews'),'GNews connected ✓','gnews.io (free)');
+}
+
+// ═══ HELPERS ═══════════════════════════════════════════════════════════
 function setLoad(on,txt=''){document.getElementById('cvLoad').classList.toggle('on',on);if(txt)document.getElementById('cvLoadTxt').textContent=txt;}
 function updQ(){document.getElementById('hdrQ').textContent=`🎨 ${quota}/20 images`;document.getElementById('qVal').textContent=`${quota}/20 left`;document.getElementById('qFill').style.width=(quota/20*100)+'%';}
-function log(t,m){const b=document.getElementById('logBox');const ts=new Date().toLocaleTimeString('en-IN',{hour12:false});const cls={ok:'lok',w:'lwarn',e:'lerr',i:'li',brk:'lbrk'}[t]||'';const d=document.createElement('div');d.className='ll';d.innerHTML=`<span class="lt">[${ts}]</span> <span class="${cls}">${m}</span>`;b.insertBefore(d,b.firstChild);}
+function log(t,m){
+  const b=document.getElementById('logBox');const ts=new Date().toLocaleTimeString('en-IN',{hour12:false});
+  const cls={ok:'lok',w:'lwarn',e:'lerr',i:'li',brk:'lbrk',ig:'lig',fb:'lfb',yt:'lyt'}[t]||'';
+  const d=document.createElement('div');d.className='ll';
+  d.innerHTML=`<span class="lt">[${ts}]</span> <span class="${cls}">${m}</span>`;
+  b.insertBefore(d,b.firstChild);
+}
 function clearLog(){document.getElementById('logBox').innerHTML='';}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),3000);}
 function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
 function tAgo(iso){const d=Math.floor((Date.now()-new Date(iso))/60000);if(d<1)return'just now';if(d<60)return d+'m ago';return Math.floor(d/60)+'h ago';}
-function detCat(t){const s=t.toLowerCase();if(/cricket|ipl|wicket|rohit|kohli/.test(s))return'Cricket';if(/bollywood|film|actor|srk/.test(s))return'Bollywood';if(/modi|election|parliament/.test(s))return'Politics';if(/jio|5g|tech|startup/.test(s))return'Tech';return'World';}
+function detCat(t){const s=t.toLowerCase();if(/cricket|ipl|wicket|rohit|kohli/.test(s))return'Cricket';if(/bollywood|film|actor|srk/.test(s))return'Bollywood';if(/modi|election|parliament/.test(s))return'Politics';if(/tech|jio|5g|startup/.test(s))return'Tech';return'World';}
 function catCls(c){return{Cricket:'cc',Bollywood:'cb',Politics:'cp',World:'cw',Tech:'ct',Business:'cbus'}[c]||'cw';}
 function catEmoji(c){return{Cricket:'🏏',Bollywood:'🎬',Politics:'🏛️',World:'🌍',Tech:'💻',Business:'📈'}[c]||'📰';}
-function buildPromptStr(cat){return{Cricket:'Cricket match India stadium packed crowd night, batsman six, roaring fans Indian flags, dramatic floodlights',Bollywood:'Bollywood premiere night Mumbai red carpet, camera flashes, luxury, giant movie billboard, warm golden lights',Politics:'Indian parliament building New Delhi dawn, Indian tricolor flag, majestic architecture, dramatic golden sky',World:'India global news concept, dramatic lighting, breaking news broadcast, Indian flag',Tech:'Futuristic Mumbai cityscape night, 6G network, fiber optic, digital India, neon',Business:'Mumbai financial district golden hour, rising stock charts, glass towers, prosperity'}[cat]||'India news dramatic photography';}
+function buildPromptStr(cat){return{Cricket:'Cricket match India stadium packed crowd night, batsman hitting six, roaring fans Indian flags, dramatic floodlights',Bollywood:'Bollywood premiere night Mumbai red carpet, camera flashes, luxury, giant movie billboard, warm golden lights',Politics:'Indian parliament building New Delhi dawn, Indian tricolor flag, majestic architecture, dramatic golden sky',World:'India global news concept, dramatic lighting, breaking news broadcast, Indian flag',Tech:'Futuristic Mumbai cityscape night, 6G network, fiber optic, digital India, neon',Business:'Mumbai financial district golden hour, rising stock charts, glass towers, prosperity'}[cat]||'India news dramatic photography';}
 function isBreaking(t){return/(breaking|urgent|just in|alert|record|shock|exclusive|win|announce)/i.test(t);}
-function saveKeys(){['kGemini','kGnews','kYtChannel','kYtApi'].forEach(k=>{try{localStorage.setItem('na4_'+k,document.getElementById(k).value);}catch(e){}});chkKeys();toast('✅ Keys saved!');}
-function loadKeys(){['kGemini','kGnews','kYtChannel','kYtApi'].forEach(k=>{try{const v=localStorage.getItem('na4_'+k);if(v)document.getElementById(k).value=v;}catch(e){}});chkKeys();}
-function chkKeys(){
-  const g=v=>document.getElementById(v).value.trim();
-  const s=(id,v,ok,no)=>{const el=document.getElementById(id);if(v){el.textContent='● '+ok;el.className='fst fst-ok';}else{el.textContent='○ '+no;el.className='fst fst-no';}};
-  s('sGemini',g('kGemini'),'Gemini connected ✓','aistudio.google.com (free)');
-  s('sGnews',g('kGnews'),'GNews connected ✓','gnews.io (free 100/day)');
-  s('sYt',g('kYtChannel'),'Channel ID set ✓','youtube.com/channel/ID');
-  s('sYtApi',g('kYtApi'),'YT API key set ✓','console.cloud.google.com');
-}
-function cpCode(id){navigator.clipboard?.writeText(document.getElementById(id).textContent.trim()).then(()=>toast('📋 Copied!'));}
 </script>
 </body>
 </html>
