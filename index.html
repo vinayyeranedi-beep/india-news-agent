@@ -498,6 +498,12 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);disp
         <input id="fbPageId" type="text" placeholder="123456789012345..." oninput="chkPlatforms()">
       </div>
       <button class="sbtn sbtn-gold" onclick="connectMeta()" style="margin-bottom:0;">🔗 Connect Instagram + Facebook</button>
+      <div style="margin-top:10px;padding:10px;background:rgba(255,193,7,0.08);border:1px solid rgba(255,193,7,0.2);border-radius:8px;font-size:11px;color:#FFC107;line-height:1.6;">
+        ⚠️ <strong>Token expires every 1-2 hours!</strong><br>
+        If you see "token expired" error → go to <strong>developers.facebook.com/tools/explorer</strong> → Generate new token → paste above → click Connect again.
+        <br><br>
+        <a href="https://developers.facebook.com/tools/explorer" target="_blank" style="color:#E8B84B;font-weight:600;">🔗 Open Graph API Explorer →</a>
+      </div>
     </div>
 
     <!-- YouTube -->
@@ -883,21 +889,60 @@ async function generateGemini(){
   const prompt=document.getElementById('imgPrompt').value.trim();
   if(!prompt){toast('⚠️ Select a news item first!');return;}
   setLoad(true,'Asking Gemini Imagen...');log('i','Generating image with Gemini...');
+
+  // Try multiple Gemini models
+  const models=[
+    'imagen-3.0-generate-001',
+    'imagen-3.0-fast-generate-001',
+    'imagegeneration@006',
+    'imagegeneration@005'
+  ];
+
+  // Also try Gemini 2.0 Flash for image generation
   try{
-    const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-001:predict?key=${key}`,{
+    // First try Gemini 2.0 Flash experimental
+    const r0=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent?key=${key}`,{
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({instances:[{prompt}],parameters:{sampleCount:1,aspectRatio:'9:16',safetyFilterLevel:'block_some',personGeneration:'allow_adult'}})
+      body:JSON.stringify({
+        contents:[{parts:[{text:prompt}]}],
+        generationConfig:{responseModalities:['IMAGE','TEXT']}
+      })
     });
-    if(!res.ok){const e=await res.json();throw new Error(e.error?.message||'API '+res.status);}
-    const d=await res.json();
-    const b64=d.predictions?.[0]?.bytesBase64Encoded;
-    if(!b64)throw new Error('No image returned');
-    const img=new Image();
-    img.onload=()=>{genImg=img;quota--;updQ();setLoad(false);buildPost();log('ok',`✅ Gemini image ready! ${quota}/20 left`);toast('✅ Image generated!');};
-    img.src=`data:image/png;base64,${b64}`;
-  }catch(e){
-    setLoad(false);log('e','Gemini: '+e.message);toast('❌ '+e.message.substring(0,50));
-    buildPost();// build with gradient fallback
+    if(r0.ok){
+      const d0=await r0.json();
+      const b64=d0.candidates?.[0]?.content?.parts?.find(p=>p.inlineData)?.inlineData?.data;
+      if(b64){
+        const img=new Image();
+        img.onload=()=>{genImg=img;quota--;updQ();setLoad(false);buildPost();log('ok',`✅ Gemini 2.0 image ready! ${quota}/20 left`);toast('✅ Image generated!');};
+        img.src=`data:image/png;base64,${b64}`;
+        return;
+      }
+    }
+  }catch(e){log('w','Gemini 2.0 Flash: '+e.message);}
+
+  // Try Imagen models
+  let success=false;
+  for(const model of models){
+    try{
+      const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:predict?key=${key}`,{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({instances:[{prompt}],parameters:{sampleCount:1,aspectRatio:'9:16',safetyFilterLevel:'block_some',personGeneration:'allow_adult'}})
+      });
+      if(!res.ok){const e=await res.json();log('w',`Model ${model}: ${e.error?.message}`);continue;}
+      const d=await res.json();
+      const b64=d.predictions?.[0]?.bytesBase64Encoded;
+      if(!b64){continue;}
+      const img=new Image();
+      img.onload=()=>{genImg=img;quota--;updQ();setLoad(false);buildPost();log('ok',`✅ Image ready via ${model}! ${quota}/20 left`);toast('✅ Image generated!');};
+      img.src=`data:image/png;base64,${b64}`;
+      success=true;break;
+    }catch(e){log('w',`Model ${model} failed: `+e.message);}
+  }
+  if(!success){
+    setLoad(false);
+    log('w','All Gemini models tried — using classic gradient background');
+    toast('⚠️ Using gradient background — image quota may be full');
+    buildPost();
   }
 }
 
@@ -1020,6 +1065,22 @@ function getCaption(){
   return tmpl.replace('{title}',selNews.title).replace('{src}',selNews.src);
 }
 
+function handleTokenExpiry(errMsg){
+  if(errMsg.toLowerCase().includes('expired')||errMsg.toLowerCase().includes('session')||errMsg.toLowerCase().includes('token')){
+    log('e','⚠️ Meta token expired! Go to developers.facebook.com/tools/explorer → Generate new token → paste in Connect tab');
+    toast('⚠️ Token expired! Refresh your Meta token in Connect tab');
+    // Highlight connect tab
+    document.getElementById('tab-connect').style.background='rgba(255,68,68,0.2)';
+    document.getElementById('tab-connect').style.color='var(--red)';
+    setTimeout(()=>{
+      document.getElementById('tab-connect').style.background='';
+      document.getElementById('tab-connect').style.color='';
+    },5000);
+    return true;
+  }
+  return false;
+}
+
 async function postToIG(){
   if(!selNews){toast('⚠️ Select news first!');return;}
   const token=document.getElementById('metaToken').value.trim();
@@ -1056,8 +1117,10 @@ async function postToIG(){
     addResult('Instagram',selNews,'ok',d2.id);
   }catch(e){
     setStepStatus('ig','err','❌ Failed');
-    log('e','Instagram: '+e.message);
-    toast('❌ Instagram: '+e.message.substring(0,40));
+    if(!handleTokenExpiry(e.message)){
+      log('e','Instagram: '+e.message);
+      toast('❌ Instagram: '+e.message.substring(0,40));
+    }
     addResult('Instagram',selNews,'fail',e.message);
   }
 }
@@ -1089,8 +1152,10 @@ async function postToFB(){
     addResult('Facebook',selNews,'ok',d.id);
   }catch(e){
     setStepStatus('fb','err','❌ Failed');
-    log('e','Facebook: '+e.message);
-    toast('❌ Facebook: '+e.message.substring(0,40));
+    if(!handleTokenExpiry(e.message)){
+      log('e','Facebook: '+e.message);
+      toast('❌ Facebook: '+e.message.substring(0,40));
+    }
     addResult('Facebook',selNews,'fail',e.message);
   }
 }
